@@ -18,16 +18,11 @@ extern byte endOfKernel;
 
 static const qword PageSize = 0x1000;
 static void * const shell = (void*)0x400000;
+static void * const getTime = (void*)0x500000;
 extern unsigned int read();
-static void * entry = (void *) 0x3008; //usamos la segunda entrada de la tabla de pagina PDP
+typedef int (*EntryPoint)();
 
 
-//mapeamos el modulo en la direccion fisica
-//hacemos que la entrada de la tabla PDP apunte a la direccion fisica
-void map(void * fisica, void * module){
-	memcpy(fisica,module,10000);
-	*((uint64_t *)entry) = fisica;
-}
 
 
 typedef int (*EntryPoint)();
@@ -66,20 +61,13 @@ int main()
 	load_systemcalls();
 	_sti();
 	
-	
 	ncClear();
 	menu();
+	
 	char opcion = '0';
-	ncPrint("Seleccionar modulo:");ncNewline();
-;
-	ncPrint("1: Hello World");ncNewline();
-	ncPrint("2: Shell");ncNewline();
-	ncPrint("3: Display time");ncNewline();
-	ncPrint("4: Graph");ncNewline();
-	ncPrint("5: Verify exceptions");ncNewline();
+	
 	while(1){
-		//ncClear();
-		//menu();
+		
 		int i = 0;
 		
 		while((opcion = getBuffer()) == EOF || i<1) {
@@ -96,20 +84,20 @@ int main()
 				break;
 			case '2':
 				ncClear();
-				ncNewline();
-				ncNewline();
-				ncNewline();
-				map(0x1000000,shell);	
-				((EntryPoint)*((uint64_t *)entry))();;
+
+				//map(0x1000000,shell);	
+				//((EntryPoint)*((uint64_t *)entry))();;
 				ncPrint("Shell");
 				ncNewline();
 				ncPrint("--------");
 				break;
 			case '3':
 				//nueva ventana (?
-				ncPrint("La hora actual es ");
-				ncPrintTime();
-				ncNewline();
+				ncClear();
+				ncPrint("HOLAAAAAAAAAAAAAAAA");
+				((EntryPoint)getTime)();
+				ncPrint("HOLA");
+//*((uint64_t *)		
 				break;
 			case '4':
 				//nueva ventana
@@ -134,5 +122,10 @@ int main()
 }
 	
 void menu(){
-	ncPrint(" ");
+	ncPrint("Seleccionar modulo:");ncNewline();
+	ncPrint("1: Hello World");ncNewline();
+	ncPrint("2: Shell");ncNewline();
+	ncPrint("3: Display time");ncNewline();
+	ncPrint("4: Graph");ncNewline();
+	ncPrint("5: Verify exceptions");ncNewline();
 }
