@@ -10,6 +10,20 @@ static void putPixel(unsigned char* screen, int x,int y, int color) {
 }
 
 
+ /* void PutPixel(int x,int y, int color){
+    //do not write memory outside the screen buffer, check parameters against the VBE mode info
+    if (x<0 || x>VbeModeInfoBlock.XResolution || y<0 || y>VbeModeInfoBlock.YResolution) return;
+    if (x) x = (x*(VbeModeInfoBlock.BitsPerPixel>>3));
+    if (y) y = (y*VbeModeInfoBlock.BytesPerScanLine);
+    register char * cTemp;
+    cTemp = &g_ScreenBuffer[x+y];
+    cTemp[0] = color & 0xff;
+    cTemp[1] = (color>>8) & 0xff;
+    cTemp[2] = (color>>16) & 0xff;
+ }
+ }*/
+
+
 int abs( int a ){
 	if(a < 0){
 		return a*(-1);
@@ -69,7 +83,7 @@ int main (void){
 			y = y + 1;
 			p = p + 2 * (dy - dx);
 		}
-		putPixel(screen, x, y, 10);
+		putPixel(screen,x, y, 10);
 	}
 
 	int i=0;
