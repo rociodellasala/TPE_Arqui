@@ -21,6 +21,7 @@ extern unsigned int read();
 
 static void * const shell = (void*)0x400000;
 static void * const getTime = (void*)0x500000;
+static void * const linearGraph = (void*)0x700000;
 
 typedef int (*EntryPoint)();
 
@@ -43,6 +44,7 @@ void * initializeKernelBinary() {
 	void * moduleAddresses[] = {
 		shell,
 		getTime,
+		linearGraph,
 	};
 
 	loadModules(&endOfKernelBinary, moduleAddresses);
@@ -83,6 +85,9 @@ int main()
 			case '2':
 				((EntryPoint)getTime)();
 				break;
+			case '3':
+				((EntryPoint)linearGraph)();
+				break;
 
 	
 		}
@@ -97,6 +102,7 @@ void menu(){
 	ncPrint("Choose module:");ncNewline();
 	ncPrint("1: Shell");ncNewline();
 	ncPrint("2: Display time");ncNewline();
-	ncPrint("3: Graph");ncNewline();
-	ncPrint("4: Verify exceptions");ncNewline();
+	ncPrint("3: Linear Graph");ncNewline();
+	ncPrint("4: Parabolic Graph");ncNewline();
+	ncPrint("5: Verify exceptions");ncNewline();
 }

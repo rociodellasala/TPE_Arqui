@@ -1,8 +1,5 @@
 #include <naiveConsole.h>
-unsigned int month();
-unsigned int seconds();
-unsigned int minutes();
-unsigned int hour();
+
 
 static uint32_t uintToBase(uint64_t value, char * buffer, uint32_t base);
 
@@ -21,33 +18,6 @@ void ncPrint(const char * string)
 		ncPrintChar(string[i]);
 }
 
-void ncPrintTime()
-{
-	int mes = month();
-	int h = hour();
-	int m = minutes();
-	int s = seconds();
-	
-	if(h == 1){
-		h = 23;
-	}
-	else if(h == 0){
-		h = 22;
-	}
-	else{
-		h = h-3;
-	}
-	ncPrintDec(h);
-	ncPrint(":");
-	ncPrintDec(m);
-	ncPrint(":");
-	ncPrintDec(s);
-	ncNewline();
-	//ncPrint("Estamos en el mes nro: ");
-	//ncPrintDec(mes);
-	//ncNewline();
-
-}
 
 void ncCopyscreen(char *buffer){
 	int y=0;

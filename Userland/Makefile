@@ -2,7 +2,7 @@ include Makefile.inc
 
 SAMPLE_DATA=0001-sampleDataModule.bin
 
-all: sampleCodeModule sampleDataModule timeDisplay
+all: sampleCodeModule sampleDataModule timeDisplay linearFDisp
 
 sampleCodeModule:
 	cd SampleCodeModule; make
@@ -12,6 +12,11 @@ sampleDataModule:
 
 timeDisplay:
 	cd getTime; make
+
+linearFDisp:
+	cd linearGraph; make
+
+
 
 clean:
 	cd SampleCodeModule; make clean
