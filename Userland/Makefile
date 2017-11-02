@@ -13,10 +13,9 @@ sampleDataModule:
 timeDisplay:
 	cd getTime; make
 
+
 linearFDisp:
 	cd linearGraph; make
-
-
 
 clean:
 	cd SampleCodeModule; make clean

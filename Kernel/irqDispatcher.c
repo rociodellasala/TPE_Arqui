@@ -7,7 +7,7 @@ static void int_21();
 
 void irqDispatcher(uint64_t irq) {
 	
-	
+	//Cambiar el switch por un arreglo de punteros a funcion!
 	switch (irq) {
 		case 0:
 			int_20();

@@ -3,11 +3,9 @@
 #include <lib.h>
 #include <keyboard_driver.h>
 #include <moduleLoader.h>
-#include <naiveConsole.h>
-#include <systemcalls.h>
+#include <video_driver.h>
 #include <interrupts.h>
 #include <systemcalls.h>
-
 
 extern byte text;
 extern byte rodata;
@@ -62,16 +60,16 @@ int main()
 	load_systemcalls();
 	_sti();
 	
-	ncClear();
-	menu();
+	
 	
 	char opcion = '0';
 	
 	while(1){
-		
+		clear();
+		menu();
 		int i = 0;
 		
-		while((opcion = getBuffer()) == EOF || i<1) {
+		while((opcion = get_buffer()) == EOF || i<1) {
 			i++;
 		}
 
@@ -85,24 +83,27 @@ int main()
 			case '2':
 				((EntryPoint)getTime)();
 				break;
+
 			case '3':
 				((EntryPoint)linearGraph)();
 				break;
+	
 
 	
 		}
 	}
 
-	
 
 	return 0;
 }
 	
 void menu(){
-	ncPrint("Choose module:");ncNewline();
-	ncPrint("1: Shell");ncNewline();
-	ncPrint("2: Display time");ncNewline();
-	ncPrint("3: Linear Graph");ncNewline();
-	ncPrint("4: Parabolic Graph");ncNewline();
-	ncPrint("5: Verify exceptions");ncNewline();
+	printChar('1');printChar(':');printChar(' ');printChar('S');printChar('H');printChar('E');printChar('L');printChar('L');newline();
+	printChar('2');printChar(':');printChar(' ');printChar('T');printChar('I');printChar('M');printChar('E');newline();
+	printChar('3');printChar(':');printChar(' ');printChar('L');printChar('I');printChar('N');printChar('E');printChar('A');printChar('R');
+	printChar(' ');printChar('G');printChar('R');printChar('A');printChar('P');printChar('H');newline();
+	printChar('4');printChar(':');printChar(' ');printChar('P');printChar('A');printChar('R');printChar('A');printChar('B');printChar('O');
+	printChar('L');printChar('I');printChar('C');printChar(' ');printChar('G');printChar('R');printChar('A');printChar('P');printChar('H');newline();
+	printChar('5');printChar(':');printChar(' ');printChar('V');printChar('E');printChar('R');printChar('I');printChar('F');printChar('Y');
+	printChar(' ');printChar('E');printChar('X');printChar('C');newline();
 }

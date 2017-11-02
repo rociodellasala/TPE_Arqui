@@ -1,11 +1,11 @@
+GLOBAL haltcpu
+
 
 GLOBAL _cli
 GLOBAL _sti
+
 GLOBAL picMasterMask
 GLOBAL picSlaveMask
-GLOBAL haltcpu
-GLOBAL _hlt
-GLOBAL read
 
 GLOBAL _irq00Handler
 GLOBAL _irq01Handler
@@ -25,70 +25,133 @@ EXTERN exceptionDispatcher
 
 SECTION .text
 
-
-_hlt:
-	sti
+haltcpu:
+	cli
 	hlt
 	ret
 
+
+
+
+; -----------------------------------------------------------------------------
+;	Clear Interrupts. The processor will not handle maskable interrupts.
+; -----------------------------------------------------------------------------
 _cli:
 	cli
 	ret
 
 
+
+
+; -----------------------------------------------------------------------------
+;	Set Interrupts. The processor will handle maskable interrupts.
+; -----------------------------------------------------------------------------
 _sti:
 	sti
 	ret
 
+
+
+
+; -----------------------------------------------------------------------------
+;	Set a Mask for the Master PIC. A device is disabled if the value of its bit
+;	is 1.
+;	Parameters:
+;		-rdi: the mask applied.
+; -----------------------------------------------------------------------------
 picMasterMask:
-	push rbp
-    mov rbp, rsp
-    mov ax, di
-    out	21h,al
-    pop rbp
-    retn
+	push 	rbp
+    	mov	rbp, rsp
 
+    	mov 	ax, di
+    	out 	21h, al
+
+    	pop 	rbp
+    	retn
+
+
+
+
+; -----------------------------------------------------------------------------
+;	Set a Mask for the Slave PIC. A device is disabled if the value of its bit
+;	is 1.
+;	Parameters:
+;		-rdi: the mask applied.
+; -----------------------------------------------------------------------------
 picSlaveMask:
-	push    rbp
-    mov     rbp, rsp
-    mov     ax, di  ; ax = mascara de 16 bits
-    out	0A1h,al
-    pop     rbp
-    retn
+	push 	rbp
+    	mov 	rbp, rsp
 
-;8254 Timer (Timer Tick)
+    	mov 	ax, di  ; ax = mascara de 16 bits
+    	out 	0A1h, al
+
+    	pop 	rbp
+    	retn
+
+
+
+
+; -----------------------------------------------------------------------------
+; 	8254 Timer (Timer Tick) interrupt.
+; -----------------------------------------------------------------------------
 _irq00Handler:
 	irqHandlerMaster 0
 
-;Keyboard
+
+
+
+; -----------------------------------------------------------------------------
+; 	Keyboard interrupt.
+; -----------------------------------------------------------------------------
 _irq01Handler:
 	irqHandlerMaster 1
 
-;Cascade pic never called
+
+
+
+; -----------------------------------------------------------------------------
+; 	Cascade pic interrupt. (It is never used)
+; -----------------------------------------------------------------------------
 _irq02Handler:
 	irqHandlerMaster 2
 
-;Serial Port 2 and 4
+
+
+
+; -----------------------------------------------------------------------------
+;	Serial Port 2 and 4 interrupt.
+; -----------------------------------------------------------------------------
 _irq03Handler:
 	irqHandlerMaster 3
 
-;Serial Port 1 and 3
+
+
+
+; -----------------------------------------------------------------------------
+; 	Serial Port 1 and 3 interrupt.
+; -----------------------------------------------------------------------------
 _irq04Handler:
 	irqHandlerMaster 4
 
-;USB
+
+
+
+; -----------------------------------------------------------------------------
+;	USB interrupt.
+; -----------------------------------------------------------------------------
 _irq05Handler:
 	irqHandlerMaster 5
 
 
-;Zero Division Exception
+
+
+; -----------------------------------------------------------------------------
+;	Zero division exception.
+; -----------------------------------------------------------------------------
 _exception0Handler:
 	exceptionHandler 0
 
-haltcpu:
-	cli
-	hlt
-	ret
+
 
 _irq80Handler:
 
@@ -98,16 +161,6 @@ _irq80Handler:
 	out 20h, al
 
 	iretq
-
-
-read:
-	push rbp
-	mov rbp, rsp
-
-	in al,60h
-
-	leave
-	ret
 
 
 SECTION .bss

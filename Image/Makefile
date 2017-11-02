@@ -10,7 +10,6 @@ IMG=$(OSIMAGENAME).img
 KERNEL=../Kernel/kernel.bin
 USERLAND=../Userland/0000-sampleCodeModule.bin ../Userland/getTime.bin ../Userland/linearGraph.bin 
 
-
 PACKEDKERNEL=packedKernel.bin
 IMGSIZE=6291456
 
