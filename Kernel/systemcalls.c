@@ -6,10 +6,10 @@
 
 typedef qword (*sys)(qword rsi, qword rdx, qword rcx, qword r8, qword r9);
 
-static sys sysCalls[10]; //Change this number to the total of the system calls
+static sys sysCalls[10]; //Change this number to the total of the system calls - actualmente son 4
 
 qword sys_clear(qword rsi, qword rdx, qword rcx, qword r8, qword r9) {
-    clear(); //Change this function to something we program
+    clear(); 
     return 0;
 }
 
@@ -28,11 +28,17 @@ qword sys_read(qword file, qword buffer, qword size, qword r8, qword r9) {
     return 1;
 }
 
+qword sys_fontColor(qword color, qword rdx, qword rcx, qword r8, qword r9) {
+    changeFontColor(color);
+    return 1;
+}
+
 void load_systemcalls(){
  
   sysCalls[1] = &sys_write;
   sysCalls[2] = &sys_clear;
   sysCalls[3] = &sys_read;
+  sysCalls[4] = &sys_fontColor;
 
   setup_IDT_entry(0x80, (qword)&_irq80Handler); 
 }
