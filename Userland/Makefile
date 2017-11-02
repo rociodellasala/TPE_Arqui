@@ -1,25 +1,21 @@
 include Makefile.inc
 
-SAMPLE_DATA=0001-sampleDataModule.bin
+SAMPLE_DATA=shell.bin
 
-all: sampleCodeModule sampleDataModule timeDisplay linearFDisp
+all: terminal timeDisplay linearFDisp
 
-sampleCodeModule:
-	cd SampleCodeModule; make
-
-sampleDataModule:
-	printf "This is sample data." >> $(SAMPLE_DATA) && dd if=/dev/zero bs=1 count=1 >> $(SAMPLE_DATA)
+terminal:
+	cd shell; make
 
 timeDisplay:
 	cd getTime; make
-
 
 linearFDisp:
 	cd linearGraph; make
 
 clean:
-	cd SampleCodeModule; make clean
+	cd shell; make clean
 	rm -rf *.bin
 
 
-.PHONY: sampleCodeModule all clean
+.PHONY: terminal all clean
