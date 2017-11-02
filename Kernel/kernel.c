@@ -73,7 +73,7 @@ int main()
 			i++;
 		}
 
-
+		
 		
 		switch(opcion) {
 			case '1':

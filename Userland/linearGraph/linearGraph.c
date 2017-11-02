@@ -1,27 +1,11 @@
 #include <stdarg.h>
+#include <stdint.h>
+#define FONT_WIDTH     10
+#define FONT_HEIGHT 16
+
 #include "./include/stdio.h"
+#include "./include/vsa_driver.h"
 
-
-static void putPixel(unsigned char* screen, int x,int y, int color) {
-    unsigned where = x*3 + y*2400;
-    screen[where] = color & 255;              // BLUE
-    screen[where + 1] = (color >> 8) & 255;   // GREEN
-    screen[where + 2] = (color >> 16) & 255;  // RED
-}
-
-
- /* void PutPixel(int x,int y, int color){
-    //do not write memory outside the screen buffer, check parameters against the VBE mode info
-    if (x<0 || x>VbeModeInfoBlock.XResolution || y<0 || y>VbeModeInfoBlock.YResolution) return;
-    if (x) x = (x*(VbeModeInfoBlock.BitsPerPixel>>3));
-    if (y) y = (y*VbeModeInfoBlock.BytesPerScanLine);
-    register char * cTemp;
-    cTemp = &g_ScreenBuffer[x+y];
-    cTemp[0] = color & 0xff;
-    cTemp[1] = (color>>8) & 0xff;
-    cTemp[2] = (color>>16) & 0xff;
- }
- }*/
 
 
 int abs( int a ){
@@ -38,9 +22,11 @@ int abs( int a ){
 
 int main (void){
 	clearScreen();
-	unsigned char *screen = (unsigned char *) 0xA0000000;
+	start_video_mode();
 	int dx, dy, p, end;
 	float x1, x2, y1, y2, x, y;
+	printf("Si estoy en modo texto esta imprimiendo esto y tira excepcion");
+	 print_string("Estoy usando print_string de mi vha_driver.c", 0xFF0000 );
 	/*
 	printf("Enter Value of X1: ");
 	scanf("%f", &x1);
@@ -70,7 +56,7 @@ int main (void){
 		y = y1;
 		end = x2;
       }
-	putPixel(screen, x, y, 10);
+	draw_pixel( x, y, 0xFF0000);
 	while(x < end)
 	{
 		x = x + 1;
@@ -83,16 +69,22 @@ int main (void){
 			y = y + 1;
 			p = p + 2 * (dy - dx);
 		}
-		putPixel(screen,x, y, 10);
+		draw_pixel(x, y, 0xFF0000);
 	}
 
 	int i=0;
+
+	
 	while(i<500000000) {
 		i++;
 	}
 
 	return 0;
+	
 }
+
+
+
 
 
 
