@@ -6,6 +6,7 @@
 #include <video_driver.h>
 #include <interrupts.h>
 #include <systemcalls.h>
+#include "./include/vsa_driver.h"
 
 extern byte text;
 extern byte rodata;
@@ -98,12 +99,24 @@ int main()
 }
 	
 void menu(){
-	printChar('1');printChar(':');printChar(' ');printChar('S');printChar('H');printChar('E');printChar('L');printChar('L');newline();
+	clear_screen();
+	start_video_mode();
+	print_string("1: SHELL", 0xFFFFFF);
+	nextLine();
+	print_string("2: TIME", 0xFFFFFF );
+	nextLine();
+	print_string("3: LINEAR GRAPH", 0xFFFFFF );
+	nextLine();
+	print_string("4: PARABOLIC GRAPH", 0xFFFFFF );
+	nextLine();
+	print_string("5: VERIFY EXCEPTIONS", 0xFFFFFF );
+	nextLine();
+	/*printChar('1');printChar(':');printChar(' ');printChar('S');printChar('H');printChar('E');printChar('L');printChar('L');newline();
 	printChar('2');printChar(':');printChar(' ');printChar('T');printChar('I');printChar('M');printChar('E');newline();
 	printChar('3');printChar(':');printChar(' ');printChar('L');printChar('I');printChar('N');printChar('E');printChar('A');printChar('R');
 	printChar(' ');printChar('G');printChar('R');printChar('A');printChar('P');printChar('H');newline();
 	printChar('4');printChar(':');printChar(' ');printChar('P');printChar('A');printChar('R');printChar('A');printChar('B');printChar('O');
 	printChar('L');printChar('I');printChar('C');printChar(' ');printChar('G');printChar('R');printChar('A');printChar('P');printChar('H');newline();
 	printChar('5');printChar(':');printChar(' ');printChar('V');printChar('E');printChar('R');printChar('I');printChar('F');printChar('Y');
-	printChar(' ');printChar('E');printChar('X');printChar('C');newline();
+	printChar(' ');printChar('E');printChar('X');printChar('C');newline();*/
 }

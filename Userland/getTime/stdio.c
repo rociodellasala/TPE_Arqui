@@ -11,6 +11,18 @@ void clearScreen() {
 	int80(2, 1, 0, 0, 0, 0);
 }
 
+void clear_screen() {
+	int80(5, 1, 0, 0, 0, 0);
+}
+
+void print_string(const char * str, int color ) {
+	int80(6, color, str, 0, 0, 0);
+}
+
+void print_char(unsigned char c, int color) {
+	int80(7, color, c, 0, 0, 0);
+}
+
 int strlen(const char* str) {
   int length = 0;
   while(*str != '\0') {

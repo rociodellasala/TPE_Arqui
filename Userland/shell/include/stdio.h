@@ -15,8 +15,12 @@ char getchar();
 void backspace() ;
 void newLine();
 void putchar(const char a);
-int changeFontColor(char* color);
+//int changeFontColor(char* color);
 char* readLine();
 char* readInt(char* string, int* num);
 int isNum(char c);
+void print_string(const char * str, int color );
+void print_char(unsigned char c, int color) ;
+void clear_screen();
+void  nextLine();
 #endif

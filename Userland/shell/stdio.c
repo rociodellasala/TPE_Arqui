@@ -5,6 +5,22 @@
 
 extern void int80(qword rdi, qword rsi, qword rdx, qword rcx, qword r8, qword r9);
 
+void clear_screen() {
+	int80(5, 1, 0, 0, 0, 0);
+}
+
+void print_string(const char * str, int color ) {
+	int80(6, color, str, 0, 0, 0);
+}
+
+void print_char(unsigned char c, int color) {
+	int80(7, color, c, 0, 0, 0);
+}
+void  nextLine(){
+	int80(8, 1, 0, 0, 0, 0);
+	print_string("$>: ", 0xFFFFFF);
+}
+
 
 
 void printf(const char * str,...){
@@ -113,7 +129,7 @@ void intostr(int num,char * ret){
 
 
 
-int changeFontColor(char* color) {
+/*int changeFontColor(char* color) {
 	if(strcmp(color, "blue")) {
 		int80(4, 1, 0, 0, 0, 0);
 	} else if(strcmp(color, "red")) {
@@ -128,7 +144,7 @@ int changeFontColor(char* color) {
 		return 1;
 	}
 	return 0;
-}
+}*/
 
 
 

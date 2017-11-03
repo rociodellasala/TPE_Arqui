@@ -5,18 +5,18 @@
 /*
 Habria q ver de pasar la hora de formato BCD a decimal en vez de
 restar manualmente.
-Pone como un signo grados cuando imprime. 
 */
 
 
 
 int main (void){
-	clearScreen();
+
+	clear_screen();
+	char * hh;
+	char * mm;
 	int h = hour();
 	int m = minutes();
-	int s = seconds();
 
-	
 	if(h == 1){
 		h = 22;
 	}
@@ -31,11 +31,17 @@ int main (void){
 		h = h-3;
 	}
 	
-	printf("%d",h);
-	printf(":");
-	printf("%d",m);
-	printf(":");
-	printf("%d\n",s);
+	
+	intostr(h,hh);
+
+	intostr(m,mm);
+
+
+	print_string("Local time is ",0xFF0000);
+	print_string(hh,0xFF0000);
+	print_string(":",0xFF0000);
+	print_string(mm,0xFF0000);
+	
 	
 
 	int i=0;

@@ -12,12 +12,16 @@ int main() {
 
 void initShell() {
 
-  clearScreen();
+  clear_screen();
   char buffer[25*80];
   int index=1;
   char c;
   int state;
+  int currColor = 0xFFFFFF;
   boolean first=true;
+
+	nextLine();
+
   while(1) {
     if ((c = getchar()) != EOF) {
     	if(c=='\b'){
@@ -29,12 +33,13 @@ void initShell() {
     	}
       	else{
       		if(c=='\n'){
-      			newLine();
+      			nextLine();
       			buffer[index]=0;
-      			state=callfunction(buffer);
+      			state=callfunction(buffer, &currColor);
 				if(state == 1){
-					printf("Unknown command: Type help to see the different functionalities");
-					newLine();
+					print_string("Unknown command: Type help to see the different functionalities", currColor);
+					//printf();
+					nextLine();
 				} else if(state == 2) {
 					return 0;
 				}
@@ -44,7 +49,7 @@ void initShell() {
 	      		buffer[index]=c;
 	      		index++;
 	      		buffer[index]=0;
-	     		putchar(buffer[index-1]);	
+	     		print_char(buffer[index-1], currColor);	
 	  		}	   
 	  	}
 		}
@@ -58,7 +63,7 @@ void initShell() {
 	
 }
 
-int callfunction(char* buffer) {
+int callfunction(char* buffer, int *currColor) {
 	int x=0;
 	char function[10];
 	//printf("%s",buffer);
@@ -70,18 +75,19 @@ int callfunction(char* buffer) {
 	}
 	function[x]=0;
 	if(strcmp(function, "echo")) {
-		echo(buffer+x+1);
+		echo(buffer+x+1, *currColor);
 		return 0;
 	}
 	if(strcmp(function, "fontColor")) {
-		return changeFontColor(buffer+x+1);
+		return changeFontColor(buffer+x+1, currColor);
 	}
 	if(strcmp(function, "clear")) {
-		 clearScreen();
+		 clear_screen();
+		nextLine();
 		 return 0;
 	}
 	if(strcmp(function, "help")) {
-		printHelp(); 
+		printHelp(*currColor); 
 		return 0;
 	}
 	if(strcmp(function, "exit")) {
@@ -91,18 +97,37 @@ int callfunction(char* buffer) {
 	return 1;
 }
 
-void echo(char * buffer){
-	printf(buffer);
-	newLine();
+void echo(char * buffer, int currColor){
+	print_string(buffer, currColor);
+	//printf(buffer); //!!!
+	nextLine();
 }
 
 
-void printHelp() {
-	clearTerminal();
-	printf("clear:                  Clears the screen.\n");
-	printf("echo [message]:         Prints message.\n");
-	printf("fontColor [color]:      Change the font color, ex: red,blue or white.\n");
-	printf("help:                   Displays manual.\n");
-	printf("exit:                   Goes back and displays the menu again.\n");
-	newLine();
+void printHelp(int currColor) {
+	//clearTerminal();
+	print_string("\n", 0xFFFFFF);
+	print_string("clear:                  Clears the screen.\n", currColor);
+	print_string("echo [message]:         Prints message.\n", currColor);
+	print_string("fontColor [color]:      Change the font color, ex: red,blue or white.\n", currColor);
+	print_string("help:                   Displays manual.\n", currColor);
+	print_string("exit:                   Goes back and displays the menu again.\n", currColor);
+	nextLine();
+}
+
+int changeFontColor(char* color, int* currColor) {
+	if(strcmp(color, "blue")) {
+		*currColor = 0x0000FF;
+	} else if(strcmp(color, "red")) {
+		*currColor = 0xFF0000;
+	} else if(strcmp(color, "violet")) {
+		*currColor =  0x9900FF;
+	} else if(strcmp(color, "yellow")) {
+		*currColor = 0xFFFF00;
+	} else if(strcmp(color, "white")) {
+		*currColor = 0xFFFFFF;
+	} else {
+		return 1;
+	}
+	return 0;
 }

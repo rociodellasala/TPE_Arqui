@@ -2,8 +2,10 @@
 #define SHELL_H
 
 void initShell();
-int callfunction(char* buffer);
-void echo(char * buffer);
+int callfunction(char* buffer, int *currColor);
+void echo(char * buffer, int currColor);
+void printHelp(int currColor);
+int changeFontColor(char* color, int* currColor) ;
 
 
 #endif

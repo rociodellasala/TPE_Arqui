@@ -2,6 +2,7 @@
 #include <interrupts.h>
 #include <keyboard_driver.h>
 #include <video_driver.h>
+#include "./include/vsa_driver.h"
 
 
 typedef qword (*sys)(qword rsi, qword rdx, qword rcx, qword r8, qword r9);
@@ -33,12 +34,36 @@ qword sys_fontColor(qword color, qword rdx, qword rcx, qword r8, qword r9) {
     return 1;
 }
 
+qword sys_clearScreen(qword color, qword rdx, qword rcx, qword r8, qword r9) {
+    clear_screen();
+    return 1;
+}
+
+qword sys_prtString(qword color, qword pal, qword rcx, qword r8, qword r9) {
+    print_string(pal, color );
+    return 1;
+}
+
+qword sys_prtChar(qword color, qword c, qword rcx, qword r8, qword r9) {
+    print_char(c, color );
+    return 1;
+}
+
+qword sys_nextLine(qword color, qword c, qword rcx, qword r8, qword r9) {
+    nextLine();
+    return 1;
+}
+
 void load_systemcalls(){
  
-  sysCalls[1] = &sys_write;
-  sysCalls[2] = &sys_clear;
-  sysCalls[3] = &sys_read;
-  sysCalls[4] = &sys_fontColor;
+ 	sysCalls[1] = &sys_write;
+  	sysCalls[2] = &sys_clear;
+  	sysCalls[3] = &sys_read;
+  	sysCalls[4] = &sys_fontColor;
+	sysCalls[5] = &sys_clearScreen;
+	sysCalls[6] = &sys_prtString;
+	sysCalls[7] = &sys_prtChar;
+	sysCalls[8] = &sys_nextLine;
 
   setup_IDT_entry(0x80, (qword)&_irq80Handler); 
 }
