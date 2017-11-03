@@ -12,7 +12,7 @@ start_video_mode();
 void deleteLine(int line);
 
 void
-draw_circle( int x0, int y0, int radius, int color);
+draw_circle( int x0, int y0, int radius);
 
 /*
  * Draws a pixel in the indicated coordinates.
@@ -22,7 +22,7 @@ draw_circle( int x0, int y0, int radius, int color);
  *		-color: the color in RGB.
  */
 void
-draw_pixel(int x, int y, int color);
+draw_pixel(int x, int y);
 
 /*
  * Draws a Character in the indicated coordinates.
@@ -33,7 +33,7 @@ draw_pixel(int x, int y, int color);
  *		-color: the color in RGB.
  */
 void
-draw_char(unsigned char c, int x, int y, int color);
+draw_char(unsigned char c, int x, int y);
 
 /*
  * Draws a String in the indicated coordinates.
@@ -44,7 +44,7 @@ draw_char(unsigned char c, int x, int y, int color);
  *		-color: the color in RGB.
  */
 void
-draw_string( char * str , int x , int y , int color);
+draw_string( char * str , int x , int y);
 
 /*
  * Draws a filled rectangle from two points, the lower right and the upper right.
@@ -73,7 +73,7 @@ clear_screen();
  *		-color: the color in RGB.
  */
 void
-print_char(unsigned char c, int color );
+print_char(unsigned char c);
 
 /*
  * Prints a String in the next writing position.
@@ -82,7 +82,7 @@ print_char(unsigned char c, int color );
  *		-color: the color in RGB.
  */
 void
-print_string(const char * str, int color );
+print_string(const char * str);
 
 /*
  * Prints a String until the indicated length. It is used by the SystemCall
@@ -93,7 +93,7 @@ print_string(const char * str, int color );
  *		-color: the color in RGB.
  */
 void
-print_string_by_length(const char * str, int length , int color);
+print_string_by_length(const char * str, int length);
 
 /*
  * Deletes the character in the previous writing position.
@@ -110,11 +110,12 @@ get_buffer_position();
 int
 get_buffer_max_per_line();
 
- /*
-  *  Ends the line and continue drawing characters in the bottom line.
-  */
- void
- nextLine();
+/*
+ *  Ends the line and continue drawing characters in the bottom line.
+ */
+void
+nextLine();
+
+void changeFontColor(int color);
 
 #endif
-

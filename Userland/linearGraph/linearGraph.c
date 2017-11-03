@@ -21,7 +21,7 @@ int abs( int a ){
 
 
 int main (void){
-	clear_screen();
+	clearScreen();
 	start_video_mode();
 	int dx, dy, p, end;
 	float x1, x2, y1, y2, x, y;

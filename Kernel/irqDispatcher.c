@@ -19,7 +19,7 @@ void irqDispatcher(uint64_t irq) {
 	return;
 }
 
-void int_20() {
+void int_20(){
 	timer_handler();
 }
 

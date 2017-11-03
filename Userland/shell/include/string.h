@@ -1,7 +1,10 @@
 #ifndef STRINGS_H
 #define STRINGS_H
 
+/* Returns the length of the specified string */
 int strlen(const char* str);
-boolean strcmp(char* s1,char* s2);
-boolean isspace(char c);
+
+/* Compares both strings and returns if they are equal */
+boolean strcmp(char* str1,char* str2);
+
 #endif

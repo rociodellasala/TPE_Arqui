@@ -1,28 +1,36 @@
 #include <types.h>
 #include <string.h>
 
-int strlen(const char* str) {
-  int length = 0;
-  while(*str != '\0') {
-    str++;
-    length++;
-  }
-  return length;
+int strlen(const char * str){
+	int length = 0;
+	while(str[length++] != '\0' );
+	return length - 1;
 }
 
-boolean strcmp(char* s1,char* s2){
-	int x=0;
-	boolean flag=true;
-	while(s1[x]!=0 && s2[x]!=0 && flag==true){
-		if(s1[x]!=s2[x]){
-			flag=false;
-		}
-		x++;
+
+boolean strcmp(char* str1,char* str2){
+	int i;
+	boolean equals = true;			
+	
+	for (i = 0; (str1[i] != 0 || str2[i] != 0) && equals == true; i++){	
+		if(str1[i] != str2[i]){
+			equals = false;
+		}	
+
 	}
-	if(flag==false)
-		return flag;
-	if(s1[x]==s2[x]){
+	
+
+	if(equals == false){
+		return false;
+	}
+
+	if(str1[i] == str2[i] && equals){
 		return true;
 	}
+	
 	return false;
 }
+
+
+
+

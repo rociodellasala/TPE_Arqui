@@ -16,7 +16,6 @@ static int bufferIndex = 0; /* indicates the index of the buffer */
  
 extern byte _read_keyboard();
 
-
 void keyboard_handler() {
 	byte key = _read_keyboard();	
 	update_buffer(key);

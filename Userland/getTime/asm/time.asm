@@ -38,3 +38,4 @@ hour:
 	mov al, 4
 	call extract
 	ret
+

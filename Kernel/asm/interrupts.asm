@@ -18,7 +18,7 @@ GLOBAL _irq80Handler
 GLOBAL _exception0Handler
 
 EXTERN irqDispatcher
-EXTERN syscallHandler
+EXTERN syscall_handler
 EXTERN exceptionDispatcher
 
 %include "./asm/macro.m"
@@ -29,8 +29,6 @@ haltcpu:
 	cli
 	hlt
 	ret
-
-
 
 
 ; -----------------------------------------------------------------------------
@@ -52,7 +50,6 @@ _sti:
 
 
 
-
 ; -----------------------------------------------------------------------------
 ;	Set a Mask for the Master PIC. A device is disabled if the value of its bit
 ;	is 1.
@@ -68,7 +65,6 @@ picMasterMask:
 
     	pop 	rbp
     	retn
-
 
 
 
@@ -155,7 +151,7 @@ _exception0Handler:
 
 _irq80Handler:
 
-	call syscallHandler
+	call syscall_handler
 
 	mov al, 20h
 	out 20h, al

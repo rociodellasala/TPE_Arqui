@@ -1,11 +1,7 @@
 #ifndef STDIO_H
 #define STDIO_H
 
-#include "../types.h"
+void printf(const char * str);
+void clear_screen();
 
-int strlen(const char* str);
-void intostr(int num,char*a);
-void printf(const char* str,...);
-void clearScreen();
-void putchar(const char a);
 #endif

@@ -1,13 +1,11 @@
-
-#include "./include/stdio.h"
-#include "./include/time.h"
+#include <stdio.h>
+#include <time.h>
+#include <stdlib.h>
 
 /*
 Habria q ver de pasar la hora de formato BCD a decimal en vez de
 restar manualmente.
 */
-
-
 
 int main (void){
 
@@ -32,25 +30,25 @@ int main (void){
 	}
 	
 	
-	intostr(h,hh);
+	intToString(h,hh);
+	intToString(m,mm);
 
-	intostr(m,mm);
 
-
-	print_string("Local time is ",0xFF0000);
-	print_string(hh,0xFF0000);
-	print_string(":",0xFF0000);
-	print_string(mm,0xFF0000);
+	printf("Local time is ");
+	printf(hh);
+	printf(":");
+	printf(mm);
 	
 	
 
 	int i=0;
-	while(i<500000000) {
+	while(i < 500000000) {
 		i++;
 	}
 
 	return 0;
 }
+
 
 
 

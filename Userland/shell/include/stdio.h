@@ -1,26 +1,28 @@
 #ifndef STDIO_H
 #define STDIO_H
 
-#include <types.h>
+/* Prints string with format */
+void printf(const char * str);
 
-void free(void * x);
-int sscanf(char format[90],char str[90], ...);
-int scanf(const char* format,...);
-int abs(int a);
-void intostr(int num,char*a);
-void printf(const char* str,...);
-void time(char* m,char* h,char* d,char* mo,char* y);
-void clearScreen();
+/* Prints character */
+void putchar(unsigned char c);
+
+/* Gets a character, an unsigned char, from stdin */
 char getchar();
-void backspace() ;
-void newLine();
-void putchar(const char a);
-//int changeFontColor(char* color);
-char* readLine();
-char* readInt(char* string, int* num);
-int isNum(char c);
-void print_string(const char * str, int color );
-void print_char(unsigned char c, int color) ;
+
+/* Deletes the last character from stdin */
+void backspace();
+
+/* Clears the screen, displaying an empty screen */
 void clear_screen();
-void  nextLine();
+
+/* Clears the screen, displaying an the prompt to write on terminal */
+void clear_terminal();
+
+/* Prints a new line */
+void newLine();
+
+/* Changes font color shown on terminal */
+int changeFontColor(char* c);
+
 #endif

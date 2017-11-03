@@ -1,10 +1,9 @@
-#include "include/types.h"
-#include "include/font.h"
-#include "include/vsa_driver.h"
+#include <types.h>
+#include <font.h>
+#include <vsa_driver.h>
 #define FONT_WIDTH     10
 #define FONT_HEIGHT    16
 //http://wiki.osdev.org/VESA_Video_Modes
-
 
 /*
  *  When the text reaches the bottom, it moves all the characters one line up.
@@ -51,7 +50,7 @@ static int xres, yres;
 static int buffer_position = 0;
 static int buffer_max_per_line;
 static int buffer_max_per_column;
-
+static int currColor;
 
 
 void
@@ -65,20 +64,21 @@ start_video_mode(){
 	yres = screen_info->Yres;
   buffer_max_per_line = xres/FONT_WIDTH;
   buffer_max_per_column = yres/FONT_HEIGHT;
+  currColor = 0xFFFFFF;
 }
 
 void
-draw_pixel(int x, int y, int color){
+draw_pixel(int x, int y){
 	unsigned pos = x * pixel_width + y * pitch;
-    screen[pos] = color & 255;              // BLUE
-    screen[pos + 1] = (color >> 8) & 255;   // GREEN
-    screen[pos + 2] = (color >> 16) & 255;  // RED
+    screen[pos] = currColor & 255;              // BLUE
+    screen[pos + 1] = (currColor >> 8) & 255;   // GREEN
+    screen[pos + 2] = (currColor >> 16) & 255;  // RED
 }
 
 /* hacer más eficiente */
 
 void
-draw_char(unsigned char c, int x, int y, int color){
+draw_char(unsigned char c, int x, int y){
 	int cx,cy;
 	int mask[8]={1,2,4,8,16,32,64,128};
 	unsigned char * glyph=font[c-32];
@@ -86,17 +86,17 @@ draw_char(unsigned char c, int x, int y, int color){
 	for(cy=0;cy<13;cy++){
 		for(cx=0;cx<8;cx++){
 			if(glyph[cy]&mask[cx]){
-				draw_pixel(x+8-cx,y+13-cy, color);
+				draw_pixel(x+8-cx,y+13-cy);
 			}
 		}
 	}
 }
 
 void
-draw_string( char * str , int x , int y , int color){
+draw_string(char * str , int x , int y){
 	int i = 0;
 	while(str[i] != '\0'){
-		draw_char(str[i],x+(10*i),y,color);
+		draw_char(str[i],x+(10*i),y);
     i++;
 	}
 }
@@ -135,12 +135,12 @@ clear_screen(){
 }
 
 void
-print_char(unsigned char c, int color ){
+print_char(unsigned char c){
   if(c =='\n'){
     nextLine();
     return;
   }
-  draw_char(c, (buffer_position % buffer_max_per_line)*FONT_WIDTH, (buffer_position / buffer_max_per_line)*FONT_HEIGHT , color);
+  draw_char(c, (buffer_position % buffer_max_per_line)*FONT_WIDTH, (buffer_position / buffer_max_per_line)*FONT_HEIGHT);
   if ( buffer_position / buffer_max_per_line == (buffer_max_per_column) ){
     move_screen();
     buffer_position -= buffer_max_per_line;
@@ -149,19 +149,19 @@ print_char(unsigned char c, int color ){
 }
 
 void
-print_string(const char * str, int color ){
+print_string(const char * str){
   int i = 0;
   while(str[i] != '\0'){
-    print_char(str[i],color);
+    print_char(str[i]);
     i++;
   }
 }
 
 void
-print_string_by_length(const char * str, int length , int color){
+print_string_by_length(const char * str, int length){
   int i = 0;
   while( i < length){
-    print_char(str[i],color);
+    print_char(str[i]);
     i++;
   }
 }
@@ -208,32 +208,32 @@ move_screen(){
 
 
 void
-print_line(int x1, int y1, int x2, int y2, int color ){
+print_line(int x1, int y1, int x2, int y2){
   double dx = x2 - x1;
   double dy = y2 - y1;
   int x, y;
   for ( x = x1; x <= x2 ; x++){
     y = y1 + dy * (x - x1) / dx;
-    draw_pixel(x, y, color);
+    draw_pixel(x, y);
   }
 }
 
 void
-draw_circunference(int x0, int y0, int radius, int color){
+draw_circunference(int x0, int y0, int radius){
     int x = radius;
     int y = 0;
     int err = 0;
 
     while (x >= y)
     {
-        draw_pixel(x0 + x, y0 + y, color);
-        draw_pixel(x0 + y, y0 + x, color);
-        draw_pixel(x0 - y, y0 + x, color);
-        draw_pixel(x0 - x, y0 + y, color);
-        draw_pixel(x0 - x, y0 - y, color);
-        draw_pixel(x0 - y, y0 - x, color);
-        draw_pixel(x0 + y, y0 - x, color);
-        draw_pixel(x0 + x, y0 - y, color);
+        draw_pixel(x0 + x, y0 + y);
+        draw_pixel(x0 + y, y0 + x);
+        draw_pixel(x0 - y, y0 + x);
+        draw_pixel(x0 - x, y0 + y);
+        draw_pixel(x0 - x, y0 - y);
+        draw_pixel(x0 - y, y0 - x);
+        draw_pixel(x0 + y, y0 - x);
+        draw_pixel(x0 + x, y0 - y);
 
         y += 1;
         err += 1 + 2*y;
@@ -246,11 +246,11 @@ draw_circunference(int x0, int y0, int radius, int color){
 }
 
 void
-draw_circle( int x0, int y0, int radius, int color){
+draw_circle( int x0, int y0, int radius){
   for(int y=-radius; y<=radius; y++)
     for(int x=-radius; x<=radius; x++)
         if(x*x+y*y <= radius*radius)
-            draw_pixel(x0+x, y0+y, color);
+            draw_pixel(x0+x, y0+y);
 }
 
 int
@@ -266,5 +266,9 @@ get_buffer_max_per_line(){
 void
 update_buffer_position(){
   buffer_position++;
+}
+
+void changeFontColor(int color){
+  currColor = color;
 }
 
