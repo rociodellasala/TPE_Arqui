@@ -6,18 +6,14 @@
 
 typedef qword (*sys)(qword rsi, qword rdx, qword rcx, qword r8, qword r9);
 
-static sys sysCalls[11]; //Change this number to the total of the system calls - actualmente son 4
+static sys sysCalls[11]; //Change this number to the total of the system calls 
 
 void sys_clear(qword rsi, qword rdx, qword rcx, qword r8, qword r9) {
 	clear_screen();
 }
 
 void sys_write(qword buffer, qword size, qword rcx, qword r8, qword r9) {
-	
-	if(size == 1)
-		print_char(buffer);
-	else 
-		print_string(buffer);
+	print_char(buffer);
 }
 
 void sys_read(qword file, qword buffer, qword size, qword r8, qword r9) {
@@ -37,7 +33,7 @@ void sys_delete(qword rsi, qword rdx, qword rcx, qword r8, qword r9) {
 }
 
 void sys_nextLine(qword rsi, qword rdx, qword rcx, qword r8, qword r9) {
-    nextLine();
+    	nextLine();
 }
 
 void load_systemcalls(){

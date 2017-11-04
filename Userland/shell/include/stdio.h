@@ -2,7 +2,7 @@
 #define STDIO_H
 
 /* Prints string with format */
-void printf(const char * str);
+void printf(const char* str,...);
 
 /* Prints character */
 void putchar(unsigned char c);
@@ -20,7 +20,10 @@ void clear_screen();
 void clear_terminal();
 
 /* Prints a new line */
-void newLine();
+void nextLine();
+
+/* Prints a new line with prompt */
+void nextTerminalLine();
 
 /* Changes font color shown on terminal */
 int changeFontColor(char* c);

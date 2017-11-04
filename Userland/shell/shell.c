@@ -5,7 +5,7 @@
 #include <unistd.h>
 
 int main() {
-	clear_screen();
+	clear_terminal();
 	start_shell();  
 	return 0;
 }
@@ -35,10 +35,10 @@ void start_shell() {
 		    			backspace();
     				}
     			} else if(c == '\n'){
-	      			nextLine();
+	      
 	      			buffer[index] = 0;
 	      			state = get_command(buffer);
-				
+				nextTerminalLine();
 				switch(state){
 					case 0:
 						index = 0;
@@ -46,7 +46,7 @@ void start_shell() {
 						break;
 					case 1:
 						printf("Unknown command: Type help to see the different functionalities");
-						nextLine();
+						nextTerminalLine();
 						index = 0;
 						buffer[0] = 0;
 						break;
@@ -103,7 +103,7 @@ int call_command(char* function, char* parameter) {
 }
 
 void printHelp() {
-	clear_terminal();
+	clear_screen();
 	printf("HELP -- Manual to interact with the terminal: \n\n");
 	printf("echo [message]:         Prints message.\n");
 	printf("font [color]:           Changes font color, ex: blue, red, yellow, white or violet.\n");	
@@ -111,12 +111,11 @@ void printHelp() {
 	printf("help:                   Displays manual.\n");
 	printf("sleep:                  The console waits for a while.\n");
 	printf("exit:                   Goes back and displays the menu.\n");
-	nextLine();
 }
 
 void echo(char * buffer){
+	nextLine();		
 	printf(buffer);
-	nextLine();
 }
 
 
