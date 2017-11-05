@@ -6,7 +6,7 @@
 
 typedef qword (*sys)(qword rsi, qword rdx, qword rcx, qword r8, qword r9);
 
-static sys sysCalls[11]; //Change this number to the total of the system calls 
+static sys sysCalls[20]; //Change this number to the total of the system calls 
 
 void sys_clear(qword rsi, qword rdx, qword rcx, qword r8, qword r9) {
 	clear_screen();
@@ -36,6 +36,10 @@ void sys_nextLine(qword rsi, qword rdx, qword rcx, qword r8, qword r9) {
     	nextLine();
 }
 
+void sys_pixel(qword x, qword y, qword rcx, qword r8, qword r9) {
+    	draw_pixel(x, y);
+}
+
 void load_systemcalls(){
  
 	sysCalls[1] = &sys_write;
@@ -45,6 +49,7 @@ void load_systemcalls(){
 	sysCalls[5] = &sys_nextLine;
 	sysCalls[6] = &sys_sleep;
 	sysCalls[7] = &sys_delete;
+	sysCalls[8] = &sys_pixel;
 
 	 setup_IDT_entry(0x80, (qword)&_irq80Handler); 
 }
@@ -52,7 +57,7 @@ void load_systemcalls(){
 
 void syscall_handler(qword rdi,qword rsi, qword rdx, qword rcx, qword r8, qword r9) {
 
-	    if(rdi < 0 || rdi >= 11) { //Change this number to the total of the system calls
+	    if(rdi < 0 || rdi >= 20) { //Change this number to the total of the system calls
 		return;
 	    }
 

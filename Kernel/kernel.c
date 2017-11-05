@@ -20,6 +20,7 @@ extern unsigned int read();
 static void * const shell = (void*)0x400000;
 static void * const getTime = (void*)0x500000;
 static void * const linearGraph = (void*)0x700000;
+static void * const parabolicGraph = (void*)0x900000;
 
 typedef int (*EntryPoint)();
 
@@ -43,6 +44,7 @@ void * initializeKernelBinary() {
 		shell,
 		getTime,
 		linearGraph,
+		parabolicGraph,
 	};
 
 	loadModules(&endOfKernelBinary, moduleAddresses);
@@ -87,6 +89,9 @@ int main()
 
 			case '3':
 				((EntryPoint)linearGraph)();
+				break;
+			case '4':
+				((EntryPoint)parabolicGraph)();
 				break;
 	
 
