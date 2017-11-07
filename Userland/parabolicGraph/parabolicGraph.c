@@ -8,11 +8,13 @@
 #define FONT_HEIGHT 16
 #define MAX_SIZE 2000
 #define exit 2
+#define WIDTH 1024
+#define HEIGHT 768
 
 #include "./include/stdio.h"
 
 /* ESTO VA A GRAFICAR CON EL EJE Y CRECIENTE HACIA ABAJO  EJE X CRECIENTE A LA DERECHA*/
-
+void coordinates();
 
 int abs( int a ){
 	if(a < 0){
@@ -28,17 +30,20 @@ int abs( int a ){
 
 int main (void){
 	clear_screen();
-	int dx, dy, p, end;
-	float x1, x2, y1, y2, x, y;
 	int a; /*Por ahora funciona con int pero en realidad deberian funcionar con doubles*/
 	int b;
-	printf("f(x) = ax + b\n");
+	int q; //Seria mi c pero como 'c' ya lo uso para getchar uso q
+	printf("f(x) = ax^2 + bx + c\n");
 	printf("Ingresar valor de 'a':\n");
 	char buffer[MAX_SIZE];
 	char buffer2[MAX_SIZE];
-  	int index;
+	char buffer3[MAX_SIZE];
+  	int index= 0;
+	int index2 = 0;
+	int index3 = 0;
   	char c;
   	int state;
+	int y;
   
   	
 	while(state != exit) {
@@ -65,7 +70,7 @@ int main (void){
 	printf("\n");
 	sscanf("%d",buffer, &a);
 	state = 0;
-	int index2;
+
 
 	printf("Ingresar valor de 'b':\n");
 	while(state != exit) {
@@ -91,54 +96,79 @@ int main (void){
 	}
 
 	sscanf("%d",buffer2, &b);
+	printf("\n");
+
+	state = 0;
+
+	printf("Ingresar valor de 'c':\n");
+	while(state != exit) {
+
+		
+
+		if ((c = getchar()) != EOF) {
+    			
+    			if(c == '\n'){
+	      
+	      			buffer3[index3] = 0;
+				state = exit;
+
+				}
+		
+      			 else {
+		      		buffer3[index3] = c;
+		      		index3++;
+		      		buffer3[index3] = 0;
+		     		putchar(buffer3[index3-1]);	
+	  		}	   	
+		}	
+	}
+
+	sscanf("%d",buffer3, &q);
 	clear_screen();
-	x1 = 300;
- 	x2 = 1300;
-	y1 = b + 300*a ;
-	y2 = 1300*a + b;
-	dx = abs(x1 - x2);
-	dy = abs(y1 - y2);
-	p = 2 * dy - dx;
-	printf("Referencias\n");
-	printf("-------> x\n");
-	printf("|\n|\n|\nv \ny");
-	if(x1 > x2)
-	{
-		x = x2;
-		y = y2;
-		end = x1;
+	
+
+	coordinates();
+
+
+
+
+	for(int i = -(WIDTH/2-HEIGHT/2)  ; i < WIDTH-(WIDTH/2-HEIGHT/2); i++){
+		y = a*i*i + b*i + q;
+		draw_pixel(i + 2*(WIDTH/2-HEIGHT/2)+WIDTH/4, HEIGHT/2 - y );
 	}
-	else
-	{
-		x = x1;
-		y = y1;
-		end = x2;
-      }
-	draw_pixel( x, y);
-	while(x < end)
-	{
-		x = x + 1;
-		if(p < 0)
-		{
-			p = p + 2 * dy;
-		}
-		else
-		{
-			y = y + 1;
-			p = p + 2 * (dy - dx);
-		}
-		draw_pixel(x, y);
-	}
+
+	
+
+
+	
 
 	int i=0;
 
 	
-	while(i<50000000000) {
+	while(i<5000000000) {
 		i++;
 	}
 
 	return 0;
 	
+}
+
+void coordinates() {
+
+	int x = (WIDTH / 2) - 1;
+	int y = (HEIGHT / 2) - 1;
+
+	
+	for (int j = 0; j < HEIGHT; j++) {
+
+		draw_pixel(x, j);
+
+	}
+
+	for(int i = 0; i < WIDTH; i++){
+
+		draw_pixel(i, y);
+	}
 }
 
 
