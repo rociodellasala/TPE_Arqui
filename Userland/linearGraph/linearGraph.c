@@ -8,11 +8,13 @@
 #define FONT_HEIGHT 16
 #define MAX_SIZE 2000
 #define exit 2
+#define WIDTH 1024
+#define HEIGHT 768
 
 #include "./include/stdio.h"
 
 /* ESTO VA A GRAFICAR CON EL EJE Y CRECIENTE HACIA ABAJO  EJE X CRECIENTE A LA DERECHA*/
-
+void coordinates();
 
 int abs( int a ){
 	if(a < 0){
@@ -92,16 +94,18 @@ int main (void){
 
 	sscanf("%d",buffer2, &b);
 	clear_screen();
-	x1 = 300;
- 	x2 = 1300;
-	y1 = b + 300*a ;
-	y2 = 1300*a + b;
-	dx = abs(x1 - x2);
-	dy = abs(y1 - y2);
-	p = 2 * dy - dx;
-	printf("Referencias\n");
-	printf("-------> x\n");
-	printf("|\n|\n|\nv \ny");
+	
+/*
+	x1 = 0; //(WIDTH/2-HEIGHT/2);// 0;
+ 	x2 = WIDTH; //-(WIDTH/2-HEIGHT/2);
+	y1 = a*x1 + b ;
+	y2 = a*x2 + b;
+*/
+
+	//dx = abs(x1 - x2);
+	//dy = abs(y1 - y2);
+
+	coordinates();
 	if(x1 > x2)
 	{
 		x = x2;
@@ -114,21 +118,14 @@ int main (void){
 		y = y1;
 		end = x2;
       }
-	draw_pixel( x, y);
-	while(x < end)
-	{
-		x = x + 1;
-		if(p < 0)
-		{
-			p = p + 2 * dy;
-		}
-		else
-		{
-			y = y + 1;
-			p = p + 2 * (dy - dx);
-		}
-		draw_pixel(x, y);
+
+
+	for(int i = 0; i < WIDTH-(WIDTH/2-HEIGHT/2); i++){
+		y = a*i + b;
+
+		draw_pixel(i + (WIDTH/2-HEIGHT/2), HEIGHT-y);
 	}
+
 
 	int i=0;
 
@@ -139,6 +136,24 @@ int main (void){
 
 	return 0;
 	
+}
+
+void coordinates() {
+
+	int x = (WIDTH / 2) - 1;
+	int y = (HEIGHT / 2) - 1;
+
+	
+	for (int j = 0; j < HEIGHT; j++) {
+
+		draw_pixel(x, j);
+
+	}
+
+	for(int i = 0; i < WIDTH; i++){
+
+		draw_pixel(i, y);
+	}
 }
 
 
