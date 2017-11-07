@@ -118,14 +118,22 @@ int main (void){
 		y = y1;
 		end = x2;
       }
+	if( a == 0){
+		for(int i = 0; i < WIDTH; i++){
 
+			draw_pixel(i, HEIGHT-b-HEIGHT/2);
+		}	
+	}else{
 
 	for(int i = 0; i < WIDTH-(WIDTH/2-HEIGHT/2); i++){
 		y = a*i + b;
-
 		draw_pixel(i + (WIDTH/2-HEIGHT/2), HEIGHT-y);
 	}
 
+	}
+
+
+	
 
 	int i=0;
 
