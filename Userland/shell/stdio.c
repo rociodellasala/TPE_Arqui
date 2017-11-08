@@ -81,7 +81,7 @@ void nextLine(){
 
 void nextTerminalLine(){
 	int80(5, 0, 0, 0, 0, 0);
-	printf("$>: ");
+	printf("$>:  ");
 }
 
 int changeFontColor(char* color){

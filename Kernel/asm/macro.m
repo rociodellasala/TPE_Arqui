@@ -67,6 +67,6 @@
 	mov rdi, %1 ; pasaje de parametro
 	call exceptionDispatcher
 
-	popState
-	iretq
+	;popState
+	ret
 %endmacro

@@ -16,6 +16,8 @@ GLOBAL _irq05Handler
 GLOBAL _irq80Handler
 
 GLOBAL _exception0Handler
+GLOBAL _exception4Handler
+GLOBAL _exception6Handler
 
 EXTERN irqDispatcher
 EXTERN syscall_handler
@@ -139,13 +141,24 @@ _irq05Handler:
 	irqHandlerMaster 5
 
 
-
-
 ; -----------------------------------------------------------------------------
 ;	Zero division exception.
 ; -----------------------------------------------------------------------------
 _exception0Handler:
 	exceptionHandler 0
+
+; -----------------------------------------------------------------------------
+;	Overflow exception.
+; -----------------------------------------------------------------------------
+_exception4Handler:
+	exceptionHandler 4
+
+
+; -----------------------------------------------------------------------------
+;	Invalid opcode exception.
+; -----------------------------------------------------------------------------
+_exception6Handler:
+	exceptionHandler 6
 
 
 

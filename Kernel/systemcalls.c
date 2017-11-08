@@ -51,7 +51,7 @@ void load_systemcalls(){
 	sysCalls[7] = &sys_delete;
 	sysCalls[8] = &sys_pixel;
 
-	 setup_IDT_entry(0x80, (qword)&_irq80Handler); 
+	setup_IDT_entry(0x80, (qword)&_irq80Handler); 
 }
 
 
