@@ -35,17 +35,21 @@ int main (void){
 	
 
 	coordinates();
-
+	int ejex;
+	int ejey;
 	if( a == 0){
 		for(int i = 0; i < WIDTH; i++){
 
 			draw_pixel(i, HEIGHT-b-HEIGHT/2);
 		}	
 	}else{
+	
 
-	for(int i = 0; i < WIDTH-(WIDTH/2-HEIGHT/2); i++){
+	for(int i = -WIDTH/2+(WIDTH/2-HEIGHT/2); i < WIDTH-(WIDTH/2-HEIGHT/2); i++){
 		y = a*i + b;
-		draw_pixel(i + (WIDTH/2-HEIGHT/2), HEIGHT-y);
+		ejex = i + (2*(WIDTH/2-HEIGHT/2)+ (WIDTH/2 - 2*(WIDTH/2-HEIGHT/2)));
+		ejey = HEIGHT/2 - y;
+		draw_pixel(ejex  , ejey);
 	}
 
 	}
