@@ -72,12 +72,11 @@ int main (void){
 		a = a * 10 + buffer[k];
 	}
 	
+	
+	int state2 = 0;
 	printf("\n");
-	state = 0;
-
-
 	printf("Ingresar valor de 'b':\n");
-	while(state != exit) {
+	while(state2 != exit) {
 
 		
 
@@ -86,7 +85,7 @@ int main (void){
     			if(c == '\n'){
 	      
 	      			buffer2[index2] = 0;
-				state = exit;
+				state2 = exit;
 
 				}
 		
@@ -98,14 +97,17 @@ int main (void){
 	  		}	   	
 		}	
 	}
-
-	for(int r = 0; r < index2; r++){
-		buffer2[r] = buffer2[r] - '0';
-		b = b * 10 + buffer2[r];
+	for(int k = 0; k < index2; k++){
+		buffer2[k] = buffer2[k] - '0';
+		b = b * 10 + buffer2[k];
 	}
+	
 	printf("\n");
-
 	state = 0;
+	b = b - 80;
+
+
+	
 
 	printf("Ingresar valor de 'c':\n");
 	while(state != exit) {
@@ -136,18 +138,21 @@ int main (void){
 	}
 
 	clear_screen();
+	printf("A es: %d \n", a);
+	printf("B es: %d \n", b );
+	printf("C es: %d \n", q );
 
 	coordinates();
+	int ejex;
+	int ejey;
 
-	for(int i = -2*(WIDTH/2-HEIGHT/2)  ; i < WIDTH-(WIDTH/2-HEIGHT/2); i++){
+
+	for(int i = -(WIDTH/2-HEIGHT/2)  ; i < WIDTH-(WIDTH/2-HEIGHT/2); i++){
 		y = a*i*i + b*i + q;
-		if(i == 0){
-			printf("Valor de y es %d", y);
-		}
-		if( (HEIGHT/2-y/150) == HEIGHT/2){
-			printf("Valor de x es %d", i);
-		}
-		draw_pixel(i + 2*(WIDTH/2-HEIGHT/2)+WIDTH/4, HEIGHT/2 - y/150);
+
+		ejex = i + (2*(WIDTH/2-HEIGHT/2)+ (WIDTH/2 - 2*(WIDTH/2-HEIGHT/2)));
+		ejey = HEIGHT/2 - y/25;
+		draw_pixel(ejex  , ejey);
 	}
 
 	
