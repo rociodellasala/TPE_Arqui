@@ -9,6 +9,8 @@ char* readInt(char* string, int* num); //moverlos al .h
 char* readLine();
 int isNum(char c);
 void * malloc(int size);
+void coordinates();
+void getNum(int* a);
 
 
 static char * mal=0x20000000000;
@@ -240,9 +242,7 @@ int sscanf(char format [90],char str[90], ...){
 		va_start( args, format );
 
 		int* a;
-		int mult;
 		int n=0;
-		char strnum[10];
 		char* character;
 
 		while(*format!='\0'){
