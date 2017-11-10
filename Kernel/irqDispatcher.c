@@ -27,5 +27,3 @@ void int_21(){
 	keyboard_handler();
 }
 
-//Puse la nro 21 pero puede ser cualquiera porque en la idt desde la 20 son reservados
-//Para las excepciones pedidas hay q fijarse en internet q numero de la idt usar

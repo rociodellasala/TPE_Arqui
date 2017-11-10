@@ -20,10 +20,8 @@ void start_shell() {
 	while(state != exit) {
 
 		if(isFirst == true){
-			backspace();
-			index--;
 			index = 0;
-			buffer[index] = 0;
+			buffer[0] = 0;
 			isFirst = false;
 		}
 
@@ -38,13 +36,14 @@ void start_shell() {
 	      
 	      			buffer[index] = 0;
 	      			state = get_command(buffer);
-				nextTerminalLine();
 				switch(state){
 					case 0:
+						nextTerminalLine();
 						index = 0;
 						buffer[0] = 0;
 						break;
 					case 1:
+						nextTerminalLine();
 						printf("Unknown command: Type help to see the different functionalities");
 						nextTerminalLine();
 						index = 0;
@@ -57,9 +56,10 @@ void start_shell() {
 		
       			} else {
 		      		buffer[index] = c;
-		      		index++;
+				putchar(buffer[index]);		      		
+				index++;
 		      		buffer[index] = 0;
-		     		putchar(buffer[index-1]);	
+			
 	  		}	   	
 		}	
 	}
@@ -88,7 +88,7 @@ int call_command(char* function, char* parameter) {
 	} else if(strcmp(function, "font")) {
 		return changeFontColor(parameter);
 	} else if(strcmp(function, "cls")) {
-		 clear_screen();
+		 clear_terminal();
 		 return 3;
 	} else if(strcmp(function, "help")) {
 		printHelp(); 

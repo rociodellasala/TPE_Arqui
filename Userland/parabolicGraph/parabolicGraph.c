@@ -67,8 +67,12 @@ int main (void){
 	  		}	   	
 		}	
 	}
+	for(int k = 0; k < index; k++){
+		buffer[k] = buffer[k] - '0';
+		a = a * 10 + buffer[k];
+	}
+	
 	printf("\n");
-	sscanf("%d",buffer, &a);
 	state = 0;
 
 
@@ -95,7 +99,10 @@ int main (void){
 		}	
 	}
 
-	sscanf("%d",buffer2, &b);
+	for(int r = 0; r < index2; r++){
+		buffer2[r] = buffer2[r] - '0';
+		b = b * 10 + buffer2[r];
+	}
 	printf("\n");
 
 	state = 0;
@@ -123,18 +130,24 @@ int main (void){
 		}	
 	}
 
-	sscanf("%d",buffer3, &q);
+	for(int w = 0; w < index3; w++){
+		buffer3[w] = buffer3[w] - '0';
+		q = q * 10 + buffer3[w];
+	}
+
 	clear_screen();
-	
 
 	coordinates();
 
-
-
-
-	for(int i = -(WIDTH/2-HEIGHT/2)  ; i < WIDTH-(WIDTH/2-HEIGHT/2); i++){
+	for(int i = -2*(WIDTH/2-HEIGHT/2)  ; i < WIDTH-(WIDTH/2-HEIGHT/2); i++){
 		y = a*i*i + b*i + q;
-		draw_pixel(i + 2*(WIDTH/2-HEIGHT/2)+WIDTH/4, HEIGHT/2 - y );
+		if(i == 0){
+			printf("Valor de y es %d", y);
+		}
+		if( (HEIGHT/2-y/150) == HEIGHT/2){
+			printf("Valor de x es %d", i);
+		}
+		draw_pixel(i + 2*(WIDTH/2-HEIGHT/2)+WIDTH/4, HEIGHT/2 - y/150);
 	}
 
 	
