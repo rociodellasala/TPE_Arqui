@@ -58,7 +58,7 @@ int main (void){
 	int i=0;
 
 	
-	while(i<5000000000) {
+	while(i<500000000) {
 		i++;
 	}
 
