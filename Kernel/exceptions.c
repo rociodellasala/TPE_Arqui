@@ -1,5 +1,5 @@
 #include <vsa_driver.h>
-#include <naiveConsole.h>
+#include <converter.h>
 #include <exceptions.h>
 
 #define ZERO_EXCEPTION_ID 0
@@ -33,14 +33,14 @@ static void zero_division(qword* rsp) {
 
 static void overflow(qword* rsp) {
 	clear_screen();
-	print_string("EXCEPTION: OVERFLOW");
+	print_string("EXCEPTION 04: OVERFLOW");
 	nextLine();	
 	showRegisters(rsp);
 }
 
 static void invalid_opcode(qword* rsp) {
 	clear_screen();
-	print_string("EXCEPTION: INVALID OPCODE");
+	print_string("EXCEPTION 06: INVALID OPCODE");
 	nextLine();	
 	showRegisters(rsp);
 }
@@ -54,7 +54,7 @@ void cycle(){
 void showRegisters(qword* rsp){
 	for(int i = 0 ; i < 16 ; i++){
 		print_string(registers[i]);
-		ncPrintHex(rsp[i]);
+		printHex(rsp[i]);
 		nextLine();	
 	}
 	

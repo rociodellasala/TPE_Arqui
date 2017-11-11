@@ -5,11 +5,8 @@
 #define FONT_HEIGHT    16
 //http://wiki.osdev.org/VESA_Video_Modes
 
-/*
- *  When the text reaches the bottom, it moves all the characters one line up.
- */
-void
-move_screen();
+/* When the text reaches the bottom, it moves all the characters one line up */
+void move_screen();
 
 #pragma pack(push)
 #pragma pack(1)
@@ -40,7 +37,7 @@ typedef struct{
 } ModeInfoBlock;
 #pragma pack(pop)
 
-//http://wiki.osdev.org/Drawing_In_Protected_Mode
+//http://wiki.osdev.org/ing_In_Protected_Mode
 /* The beginning of the table */
 static ModeInfoBlock * screen_info =  (ModeInfoBlock *) 0x5C00; //0x00005C28;//0xA0000; // 0x5C00; //0xA0000; //
 static byte * screen;
@@ -62,9 +59,9 @@ start_video_mode(){
 	pixel_width = screen_info->bpp / 8;
 	xres = screen_info->Xres;
 	yres = screen_info->Yres;
-  buffer_max_per_line = xres/FONT_WIDTH;
-  buffer_max_per_column = yres/FONT_HEIGHT;
-  currColor = 0xFFFFFF;
+  	buffer_max_per_line = xres/FONT_WIDTH;
+  	buffer_max_per_column = yres/FONT_HEIGHT;
+ 	currColor = 0xFFFFFF;
 }
 
 void
@@ -80,8 +77,8 @@ draw_pixel(int x, int y){
 void
 draw_char(unsigned char c, int x, int y){
 	int cx,cy;
-	int mask[8]={1,2,4,8,16,32,64,128};
-	unsigned char * glyph=font[c-32];
+	int mask[8] = {1,2,4,8,16,32,64,128};
+	unsigned char * glyph = font[c-32];
 
 	for(cy=0;cy<13;cy++){
 		for(cx=0;cx<8;cx++){
@@ -216,56 +213,6 @@ print_line(int x1, int y1, int x2, int y2){
     y = y1 + dy * (x - x1) / dx;
     draw_pixel(x, y);
   }
-}
-
-void
-draw_circunference(int x0, int y0, int radius){
-    int x = radius;
-    int y = 0;
-    int err = 0;
-
-    while (x >= y)
-    {
-        draw_pixel(x0 + x, y0 + y);
-        draw_pixel(x0 + y, y0 + x);
-        draw_pixel(x0 - y, y0 + x);
-        draw_pixel(x0 - x, y0 + y);
-        draw_pixel(x0 - x, y0 - y);
-        draw_pixel(x0 - y, y0 - x);
-        draw_pixel(x0 + y, y0 - x);
-        draw_pixel(x0 + x, y0 - y);
-
-        y += 1;
-        err += 1 + 2*y;
-        if (2*(err-x) + 1 > 0)
-        {
-            x -= 1;
-            err += 1 - 2*x;
-        }
-    }
-}
-
-void
-draw_circle( int x0, int y0, int radius){
-  for(int y=-radius; y<=radius; y++)
-    for(int x=-radius; x<=radius; x++)
-        if(x*x+y*y <= radius*radius)
-            draw_pixel(x0+x, y0+y);
-}
-
-int
-get_buffer_position(){
-  return buffer_position;
-}
-
-int
-get_buffer_max_per_line(){
-  return buffer_max_per_line;
-}
-
-void
-update_buffer_position(){
-  buffer_position++;
 }
 
 void changeFontColor(int color){

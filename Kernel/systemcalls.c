@@ -6,7 +6,7 @@
 
 typedef qword (*sys)(qword rsi, qword rdx, qword rcx, qword r8, qword r9);
 
-static sys sysCalls[20]; //Change this number to the total of the system calls !!!!!!!!!!!
+static sys sysCalls[9]; 
 
 void sys_clear(qword rsi, qword rdx, qword rcx, qword r8, qword r9) {
 	clear_screen();
@@ -33,15 +33,14 @@ void sys_delete(qword rsi, qword rdx, qword rcx, qword r8, qword r9) {
 }
 
 void sys_nextLine(qword rsi, qword rdx, qword rcx, qword r8, qword r9) {
-    	nextLine();
+    nextLine();
 }
 
 void sys_pixel(qword x, qword y, qword rcx, qword r8, qword r9) {
-    	draw_pixel(x, y);
+    draw_pixel(x, y);
 }
 
 void load_systemcalls(){
- 
 	sysCalls[1] = &sys_write;
 	sysCalls[2] = &sys_clear;
 	sysCalls[3] = &sys_read;
@@ -57,9 +56,9 @@ void load_systemcalls(){
 
 void syscall_handler(qword rdi,qword rsi, qword rdx, qword rcx, qword r8, qword r9) {
 
-	    if(rdi < 0 || rdi >= 20) { //Change this number to the total of the system calls !!!!!!!!!
+	if(rdi < 0 || rdi >= 9) { 
 		return;
-	    }
+	}
 
-	    sysCalls[rdi](rsi,rdx,rcx,r8,r9);
+	sysCalls[rdi](rsi,rdx,rcx,r8,r9);
 }

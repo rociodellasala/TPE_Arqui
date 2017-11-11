@@ -1,5 +1,4 @@
 GLOBAL _read_keyboard
-
 section .text
 
 ; -----------------------------------------------------------------------------
@@ -7,7 +6,6 @@ section .text
 ;	Return:
 ;		-rax: the RAW data.
 ; -----------------------------------------------------------------------------
-
 _read_keyboard:
 	push rbp
 	mov rbp, rsp

@@ -12,11 +12,12 @@ GLOBAL _irq02Handler
 GLOBAL _irq03Handler
 GLOBAL _irq04Handler
 GLOBAL _irq05Handler
-GLOBAL _irq80Handler
 
 GLOBAL _exception0Handler
 GLOBAL _exception4Handler
 GLOBAL _exception6Handler
+
+GLOBAL _irq80Handler
 
 EXTERN irqDispatcher
 EXTERN syscall_handler
@@ -35,6 +36,8 @@ haltcpu:
 
 ; -----------------------------------------------------------------------------
 ;	Clear Interrupts. The processor will not handle maskable interrupts.
+;	Parameters:
+;		None
 ; -----------------------------------------------------------------------------
 _cli:
 	cli
@@ -42,9 +45,10 @@ _cli:
 
 
 
-
 ; -----------------------------------------------------------------------------
 ;	Set Interrupts. The processor will handle maskable interrupts.
+;	Parameters:
+;		None
 ; -----------------------------------------------------------------------------
 _sti:
 	sti
@@ -88,13 +92,11 @@ picSlaveMask:
 
 
 
-
 ; -----------------------------------------------------------------------------
 ; 	8254 Timer (Timer Tick) interrupt.
 ; -----------------------------------------------------------------------------
 _irq00Handler:
 	irqHandlerMaster 0
-
 
 
 
@@ -106,13 +108,11 @@ _irq01Handler:
 
 
 
-
 ; -----------------------------------------------------------------------------
 ; 	Cascade pic interrupt. (It is never used)
 ; -----------------------------------------------------------------------------
 _irq02Handler:
 	irqHandlerMaster 2
-
 
 
 
@@ -124,13 +124,11 @@ _irq03Handler:
 
 
 
-
 ; -----------------------------------------------------------------------------
 ; 	Serial Port 1 and 3 interrupt.
 ; -----------------------------------------------------------------------------
 _irq04Handler:
 	irqHandlerMaster 4
-
 
 
 
@@ -141,17 +139,22 @@ _irq05Handler:
 	irqHandlerMaster 5
 
 
+
 ; -----------------------------------------------------------------------------
 ;	Zero division exception.
 ; -----------------------------------------------------------------------------
 _exception0Handler:
 	exceptionHandler 0
 
+
+
 ; -----------------------------------------------------------------------------
 ;	Overflow exception.
 ; -----------------------------------------------------------------------------
 _exception4Handler:
 	exceptionHandler 4
+
+
 
 ; -----------------------------------------------------------------------------
 ;	Invalid opcode exception.
@@ -161,8 +164,10 @@ _exception6Handler:
 
 
 
+; -----------------------------------------------------------------------------
+;	Syscall
+; -----------------------------------------------------------------------------
 _irq80Handler:
-
 	call syscall_handler
 
 	mov al, 20h

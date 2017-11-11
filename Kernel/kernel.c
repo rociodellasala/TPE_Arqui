@@ -24,7 +24,6 @@ static void * const parabolicGraph = (void*)0x900000;
 
 typedef int (*EntryPoint)();
 
-
 void clearBSS(void * bssAddress, qword bssSize) {
 	memset(bssAddress, 0, bssSize);
 }
@@ -32,38 +31,25 @@ void clearBSS(void * bssAddress, qword bssSize) {
 void * getStackBase() {
 	return (void*)(
 		(qword)&endOfKernel
-		+ PageSize * 8				//The size of the stack itself, 32KiB
-		- sizeof(qword)			//Begin at the top of the stack
+		+ PageSize * 8		  	/* The size of the stack itself, 32KiB */
+		- sizeof(qword)			/* Begin at the top of the stack */
 	);
 }
 
 void * initializeKernelBinary() {
-	
-
-	void * moduleAddresses[] = {
-		shell,
-		getTime,
-		linearGraph,
-		parabolicGraph,
-	};
-
+	void * moduleAddresses[] = { shell, getTime, linearGraph, parabolicGraph,};
 	loadModules(&endOfKernelBinary, moduleAddresses);
-	
 	clearBSS(&bss, &endOfKernel - &bss);
-
 	return getStackBase();
 }
 
-
-int main()
-{	
-	_cli();
+int main(){
+	
+	_cli();		
 	load_idt();
 	load_systemcalls();
 	start_video_mode();
 	_sti();
-	
-	
 	
 	char opcion = '0';
 	
@@ -76,8 +62,6 @@ int main()
 			i++;
 		}
 
-		
-		
 		switch(opcion) {
 			case '1':
 				((EntryPoint)shell)();
@@ -94,12 +78,8 @@ int main()
 			case '4':
 				((EntryPoint)parabolicGraph)();
 				break;
-			
-
-	
 		}
 	}
-
 
 	return 0;
 }

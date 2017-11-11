@@ -15,10 +15,9 @@ int seconds_elapsed() {
 	return ticks / 18;
 }
 
-
 void sleep(unsigned long t){
-	
 	_cli();
+    
     unsigned long sleep_ticks = 0;
 	while(sleep_ticks < t){
     		sleep_ticks++;

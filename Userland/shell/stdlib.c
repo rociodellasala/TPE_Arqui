@@ -1,6 +1,5 @@
 #include <stdlib.h>
 
-
 void intToString(int num, char* str){
 	int dig = 0;
 	char aux;

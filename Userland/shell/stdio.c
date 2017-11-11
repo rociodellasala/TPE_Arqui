@@ -45,8 +45,6 @@ void printf(const char * str,...){
 
 	}	
 	va_end(arguments);
-
-
 }
 
 void putchar(unsigned char c) {

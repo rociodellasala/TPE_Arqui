@@ -1,8 +1,13 @@
-GLOBAL divide_by_cero
+GLOBAL divide_by_zero
 GLOBAL overflow
 GLOBAL invalid_opcode
 
-divide_by_cero:
+; -----------------------------------------------------------------------------
+;	Generates a divide by zero exception
+;	Parameters:
+;		None
+; -----------------------------------------------------------------------------
+divide_by_zero:
 	push rbp
 	mov rbp, rsp
 
@@ -15,6 +20,12 @@ divide_by_cero:
 	ret
 
 
+	
+; -----------------------------------------------------------------------------
+;	Generates an invalid opcode exception
+;	Parameters:
+;		None
+; -----------------------------------------------------------------------------
 invalid_opcode:
 	push rbp
 	mov rbp, rsp

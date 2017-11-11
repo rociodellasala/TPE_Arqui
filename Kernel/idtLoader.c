@@ -19,21 +19,22 @@ typedef struct {
 #pragma pack(pop)		/* Reestablece la alinceación actual */
 
 
-
-DESCR_INT * idt = (DESCR_INT *) 0x0;	// IDT de 255 entradas
+/* IDT de 255 entradas */
+DESCR_INT * idt = (DESCR_INT *) 0x0;
 
 void load_idt() {
   	_cli();
-
+	
+	/* Cargo en la IDT las interrupciones */
   	setup_IDT_entry (0x20, (qword)&_irq00Handler);
-  	setup_IDT_entry (0x21, (qword)&_irq01Handler);  //IDT teclado
-  	
+  	setup_IDT_entry (0x21, (qword)&_irq01Handler);  
+
+	/* Cargo en la IDT las excepciones */  	
 	setup_IDT_entry (0x00, (qword)&_exception0Handler);
 	//setup_IDT_entry (0x04, (qword)&_exception4Handler);
 	setup_IDT_entry (0x06, (qword)&_exception6Handler);
 
 
-	//Solo interrupcion timer tick habilitadas
 	picMasterMask(0xFC); 
 	picSlaveMask(0xFF);
         

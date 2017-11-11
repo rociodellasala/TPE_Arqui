@@ -3,28 +3,11 @@
 #include <stdint.h>
 #include <types.h>
 
-static void int_20();
-static void int_21();
+typedef void (*handler_t)(void);
+handler_t handlers[] = {timer_handler, keyboard_handler};
 
 void irqDispatcher(qword irq) {
-	
-	//Cambiar el switch por un arreglo de punteros a funcion!
-	switch (irq) {
-		case 0:
-			int_20();
-			break;
-		case 1:
-			int_21();
-			break;
-	}
-	return;
+	handlers[irq]();
 }
 
-void int_20(){
-	timer_handler();
-}
-
-void int_21(){
-	keyboard_handler();
-}
 

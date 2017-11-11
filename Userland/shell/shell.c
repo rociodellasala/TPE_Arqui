@@ -3,8 +3,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
-#include <exceptions.h>
-
 
 int main() {
 	clear_terminal();
@@ -99,7 +97,7 @@ int call_command(char* function, char* parameter) {
 		sleep();
 		return 0;
 	} else if(strcmp(function, "divideByZero")) {		
-		divide_by_cero();
+		divide_by_zero();
 	} else if(strcmp(function, "invalidOpcode")){
 		invalid_opcode();
 	} else if(strcmp(function, "exit")) {			
