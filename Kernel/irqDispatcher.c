@@ -1,11 +1,12 @@
 #include <time.h>
 #include <keyboard_driver.h>
 #include <stdint.h>
+#include <types.h>
 
 static void int_20();
 static void int_21();
 
-void irqDispatcher(uint64_t irq) {
+void irqDispatcher(qword irq) {
 	
 	//Cambiar el switch por un arreglo de punteros a funcion!
 	switch (irq) {

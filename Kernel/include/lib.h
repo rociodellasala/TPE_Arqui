@@ -2,11 +2,10 @@
 #define LIB_H
 
 #include <stdint.h>
+#include <types.h>
 
-void * memset(void * destination, int32_t character, uint64_t length);
-void * memcpy(void * destination, const void * source, uint64_t length);
-void menu();
-
-char *cpuVendor(char *result);
+void * memset(void * destination, dword character, qword length);
+void * memcpy(void * destination, const void * source, qword length);
+char * cpuVendor(char *result);
 
 #endif

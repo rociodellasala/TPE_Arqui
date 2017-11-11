@@ -1,6 +1,6 @@
 #include <stdlib.h>
 
-/**COPIADO DE NICO, CAMBIARRRRRRRR O NO SE */
+
 void intToString(int num, char* str){
 	int dig = 0;
 	char aux;

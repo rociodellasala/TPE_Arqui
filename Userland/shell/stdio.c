@@ -6,7 +6,6 @@
 
 extern void int80(qword rdi, qword rsi, qword rdx, qword rcx, qword r8, qword r9);
 
-/* Esto esta mal, printf recibe formato pero no se q hacer :(  PREGUNTARRR */
 void printf(const char * str,...){
 	char num[12];
 	va_list arguments;

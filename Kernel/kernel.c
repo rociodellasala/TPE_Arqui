@@ -1,6 +1,5 @@
 #include <stdint.h>
 #include <string.h>
-#include <lib.h>
 #include <keyboard_driver.h>
 #include <moduleLoader.h>
 #include <vsa_driver.h>
@@ -16,10 +15,10 @@ extern byte endOfKernel;
 
 static const qword PageSize = 0x1000;
 extern unsigned int read();
+void menu();
 
 static void * const shell = (void*)0x400000;
 static void * const getTime = (void*)0x500000;
-static void * const zeroException = (void*)0x600000;
 static void * const linearGraph = (void*)0x700000;
 static void * const parabolicGraph = (void*)0x900000;
 
@@ -46,7 +45,6 @@ void * initializeKernelBinary() {
 		getTime,
 		linearGraph,
 		parabolicGraph,
-		zeroException
 	};
 
 	loadModules(&endOfKernelBinary, moduleAddresses);
@@ -97,9 +95,6 @@ int main()
 				((EntryPoint)parabolicGraph)();
 				break;
 			
-			case '5':
-				((EntryPoint)zeroException)();
-				break;
 
 	
 		}
@@ -119,7 +114,5 @@ void menu(){
 	print_string("3: LINEAR GRAPH");
 	nextLine();
 	print_string("4: PARABOLIC GRAPH");
-	nextLine();
-	print_string("5: DIVIDE");
 	nextLine();
 }

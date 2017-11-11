@@ -2,7 +2,7 @@ include Makefile.inc
 
 SAMPLE_DATA=shell.bin
 
-all: terminal timeDisplay linearFDisp parabDisp divide
+all: terminal timeDisplay linearFDisp parabDisp 
 
 terminal:
 	cd shell; make
@@ -15,9 +15,6 @@ linearFDisp:
 
 parabDisp:
 	cd parabolicGraph; make
-
-divide:
-	cd zeroException; make
 
 clean:
 	cd shell; make clean

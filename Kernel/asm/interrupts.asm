@@ -1,6 +1,5 @@
 GLOBAL haltcpu
 
-
 GLOBAL _cli
 GLOBAL _sti
 
@@ -22,6 +21,7 @@ GLOBAL _exception6Handler
 EXTERN irqDispatcher
 EXTERN syscall_handler
 EXTERN exceptionDispatcher
+EXTERN main
 
 %include "./asm/macro.m"
 
@@ -152,7 +152,6 @@ _exception0Handler:
 ; -----------------------------------------------------------------------------
 _exception4Handler:
 	exceptionHandler 4
-
 
 ; -----------------------------------------------------------------------------
 ;	Invalid opcode exception.

@@ -1,34 +1,63 @@
 #include <vsa_driver.h>
-#include <registers.h>
+#include <naiveConsole.h>
+#include <exceptions.h>
 
 #define ZERO_EXCEPTION_ID 0
-#define OVERFLOW_EXCEPTION_ID 4
-#define INVALID_OPCODE_EXCEPTION_ID 6
+#define OVERFLOW_EXCEPTION 4
+#define INVALID_OPCODE 6
 
-static void zero_division();
-static void overflow();
-static void invalid_opcode();
+static char* registers[] = {" R15: ", " R14: ", " R13: ", " R12: ", " R11: ", " R10: ", " R9:  ", " R8:  "
+					, " RSI: ", " RDI: ", " RBP: ", " RDX: ", " RCX: ", " RBX: ", " RAX: ", " RIP: "};
 
-void exceptionDispatcher(int exception) {
-	if (exception == ZERO_EXCEPTION_ID)
-		zero_division();
-	else if (exception == OVERFLOW_EXCEPTION_ID)
-		overflow();
-	else if (exception == INVALID_OPCODE_EXCEPTION_ID)
-		invalid_opcode();
+
+void exceptionDispatcher(int exception, qword* rsp) {
+	switch(exception){
+		case ZERO_EXCEPTION_ID:
+			zero_division(rsp);
+			break;
+		case OVERFLOW_EXCEPTION:
+			overflow(rsp);
+			break;
+		case INVALID_OPCODE:
+			invalid_opcode(rsp);
+			break;
+	}
 }
 
-static void zero_division() {
+static void zero_division(qword* rsp) {
 	clear_screen();
-	print_string("EXCEPTION: DIVIDE ERROR");	
+	print_string("EXCEPTION 00: DIVIDE ERROR");
+	nextLine();	
+	showRegisters(rsp);
 }
 
-static void overflow() {
+static void overflow(qword* rsp) {
 	clear_screen();
-	print_string("EXCEPTION: OVERFLOW");	
+	print_string("EXCEPTION: OVERFLOW");
+	nextLine();	
+	showRegisters(rsp);
 }
 
-static void invalid_opcode() {
+static void invalid_opcode(qword* rsp) {
 	clear_screen();
-	print_string("EXCEPTION: INVALID OPCODE");	
+	print_string("EXCEPTION: INVALID OPCODE");
+	nextLine();	
+	showRegisters(rsp);
+}
+
+void cycle(){
+	int i = 0;
+	while(i < 500000000)
+		i++;	
+}
+
+void showRegisters(qword* rsp){
+	for(int i = 0 ; i < 16 ; i++){
+		print_string(registers[i]);
+		ncPrintHex(rsp[i]);
+		nextLine();	
+	}
+	
+	print_string("Returning to main menu...");
+	cycle();
 }

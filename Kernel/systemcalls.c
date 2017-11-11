@@ -6,7 +6,7 @@
 
 typedef qword (*sys)(qword rsi, qword rdx, qword rcx, qword r8, qword r9);
 
-static sys sysCalls[20]; //Change this number to the total of the system calls 
+static sys sysCalls[20]; //Change this number to the total of the system calls !!!!!!!!!!!
 
 void sys_clear(qword rsi, qword rdx, qword rcx, qword r8, qword r9) {
 	clear_screen();
@@ -57,7 +57,7 @@ void load_systemcalls(){
 
 void syscall_handler(qword rdi,qword rsi, qword rdx, qword rcx, qword r8, qword r9) {
 
-	    if(rdi < 0 || rdi >= 20) { //Change this number to the total of the system calls
+	    if(rdi < 0 || rdi >= 20) { //Change this number to the total of the system calls !!!!!!!!!
 		return;
 	    }
 

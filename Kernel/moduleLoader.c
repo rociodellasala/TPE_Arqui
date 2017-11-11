@@ -1,34 +1,35 @@
 #include <stdint.h>
 #include <lib.h>
 #include <moduleLoader.h>
+#include <types.h>
 
 
-static void loadModule(uint8_t ** module, void * targetModuleAddress);
-static uint32_t readUint32(uint8_t ** address);
+static void loadModule(byte ** module, void * targetModuleAddress);
+static dword readUint32(byte ** address);
 
 void loadModules(void * payloadStart, void ** targetModuleAddress)
 {
 	int i;
-	uint8_t * currentModule = (uint8_t*)payloadStart;
-	uint32_t moduleCount = readUint32(&currentModule);
+	byte * currentModule = (byte*)payloadStart;
+	dword moduleCount = readUint32(&currentModule);
 
 	for (i = 0; i < moduleCount; i++)
 		loadModule(&currentModule, targetModuleAddress[i]);
 }
 
-static void loadModule(uint8_t ** module, void * targetModuleAddress)
+static void loadModule(byte ** module, void * targetModuleAddress)
 {
-	uint32_t moduleSize = readUint32(module);
+	dword moduleSize = readUint32(module);
 
 	memcpy(targetModuleAddress, *module, moduleSize);
 	*module += moduleSize;
 
 }
 
-static uint32_t readUint32(uint8_t ** address)
+static dword readUint32(byte ** address)
 {
-	uint32_t result = *(uint32_t*)(*address);
-	*address += sizeof(uint32_t);
+	dword result = *(dword*)(*address);
+	*address += sizeof(dword);
 	return result;
 }
 

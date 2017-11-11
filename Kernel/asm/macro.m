@@ -61,12 +61,14 @@
 
 
 
-%macro exceptionHandler 1
-	pushState
+%macro exceptionHandler 1	
+	pushState	
 
-	mov rdi, %1 ; pasaje de parametro
+	mov rdi, %1 
+	mov rsi, rsp 
+	
 	call exceptionDispatcher
-
-	;popState
-	ret
+	
+	popState
+	call main
 %endmacro

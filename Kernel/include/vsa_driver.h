@@ -1,17 +1,16 @@
 #ifndef VSA_DRIVER_H
 #define VSA_DRIVER_H
 
-#include "types.h"
-
 /*
  * Starts the video mode configuration. Loads the screen memory pointer in the drivers.
  */
-void
+void 
 start_video_mode();
 
-void deleteLine(int line);
+void 
+deleteLine(int line);
 
-void
+void 
 draw_circle( int x0, int y0, int radius);
 
 /*
@@ -116,6 +115,7 @@ get_buffer_max_per_line();
 void
 nextLine();
 
-void changeFontColor(int color);
+void 
+changeFontColor(int color);
 
 #endif

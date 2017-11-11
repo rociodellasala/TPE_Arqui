@@ -3,10 +3,12 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
+#include <exceptions.h>
+
 
 int main() {
 	clear_terminal();
-	start_shell();  
+	start_shell();
 	return 0;
 }
 
@@ -67,12 +69,12 @@ void start_shell() {
 
 int get_command(char* buffer){
 	int x = 0;
-	char function[6];
+	char function[15];
 
 	while(buffer[x] != ' ' && buffer[x] != 0) {
 		function[x] = buffer[x];
 		x++;
-		if(x > 5)
+		if(x > 14)
 			return 1;		
 	}
 	
@@ -96,7 +98,11 @@ int call_command(char* function, char* parameter) {
 	} else if(strcmp(function, "sleep")) {
 		sleep();
 		return 0;
-	} else if(strcmp(function, "exit")) {
+	} else if(strcmp(function, "divideByZero")) {		
+		divide_by_cero();
+	} else if(strcmp(function, "invalidOpcode")){
+		invalid_opcode();
+	} else if(strcmp(function, "exit")) {			
 		return 2;
 	}
 		return 1;
@@ -110,6 +116,8 @@ void printHelp() {
 	printf("cls:                    Clears screen.\n");	
 	printf("help:                   Displays manual.\n");
 	printf("sleep:                  The console waits for a while.\n");
+	printf("divideByZero:           Makes an integer division to show how zero exception works\n");
+	printf("invalidOpcode:          Shows how invalid opcode exception works by calling an undefined instruction\n");
 	printf("exit:                   Goes back and displays the menu.\n");
 }
 
@@ -117,6 +125,8 @@ void echo(char * buffer){
 	nextLine();		
 	printf(buffer);
 }
+
+
 
 
 
