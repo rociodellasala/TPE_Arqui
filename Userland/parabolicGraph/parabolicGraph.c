@@ -126,7 +126,7 @@ int getNum(int* a){
 				state = exit;
 
 				}
-			else if(c < '0' || c > '9'){
+			else if((c < '0' || c > '9' ) && c != '-'){
 			
 				return 1; //error
 			}
