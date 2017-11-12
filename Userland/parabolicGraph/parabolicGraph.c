@@ -57,9 +57,7 @@ int main (void){
 	printf("\n");
 
 	clear_screen();
-	printf("A es: %d \n", a);
-	printf("B es: %d \n", b );
-	printf("C es: %d \n", q );
+
 
 	coordinates();
 	int ejex;
