@@ -15,9 +15,8 @@ typedef struct{
   word granularity;
   word winsize;
   word segmentA, segmentB;
-  //VBE_FAR(realFctPtr);
   dword farptr;
-  word pitch; // bytes per scanline
+  word pitch; // bpp 
 
   word Xres, Yres;
   byte Wchar, Ychar, planes, bpp, banks;
@@ -30,14 +29,14 @@ typedef struct{
   byte rsv_mask, rsv_position;
   byte directcolor_attributes;
 
-  dword physbase;  // your LFB (Linear Framebuffer) address ;)
+  dword physbase;  // Linear Framebuffer
   dword reserved1;
   word reserved2;
 } ModeInfoBlock;
 #pragma pack(pop)
 
 //http://wiki.osdev.org/ing_In_Protected_Mode
-/* The beginning of the table */
+/* Start of table */
 static ModeInfoBlock * screen_info =  (ModeInfoBlock *) 0x5C00; 
 static byte * screen;
 static int pitch;
@@ -178,7 +177,6 @@ void deleteLine(int line){
 
 void
 nextLine(){
-  //TODO: change -3.
   if ( buffer_position / buffer_max_per_line == (buffer_max_per_column-3) ){
     move_screen();
   }else{
