@@ -139,13 +139,25 @@ int getNum(int* a){
 	  		}	   	
 		}	
 	}
-	for(int k = 0; k < index; k++){
+	if(buffer[0] == '-'){
+		for(int k = 1 ; k < index; k++){
 		buffer[k] = buffer[k] - '0';
 		*a = (*a) * 10 + buffer[k];
-	}
-	return 0;
-}
+		}
+		*a = (*a)*(-1);
+		return 0;
 
+	}else{
+		for(int k = 0 ; k < index; k++){
+		buffer[k] = buffer[k] - '0';
+		*a = (*a) * 10 + buffer[k];
+		}
+		return 0;
+	}
+	
+
+
+}
 
 
 
