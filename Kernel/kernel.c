@@ -2,7 +2,7 @@
 #include <string.h>
 #include <keyboard_driver.h>
 #include <moduleLoader.h>
-#include <vsa_driver.h>
+#include <video_driver.h>
 #include <interrupts.h>
 #include <systemcalls.h>
 

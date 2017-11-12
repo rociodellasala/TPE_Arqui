@@ -1,5 +1,5 @@
 #include <converter.h>
-#include <vsa_driver.h>
+#include <video_driver.h>
 
 static dword uintToBase(qword value, char * buffer, dword base);
 

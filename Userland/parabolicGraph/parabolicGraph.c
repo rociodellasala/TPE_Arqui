@@ -23,13 +23,37 @@ int main (void){
   
 	printf("f(x) = ax^2 + bx + c\n");
 	printf("Ingresar valor de 'a':\n");
-  	getNum(&a);
+  	if(getNum(&a) == 1){
+		printf("Error: Parametro incorrecto\n");
+		int j = 0;
+		while(j<50000000) {
+		j++;
+		}
+
+		return 0;
+	}
 	printf("\n");
 	printf("Ingresar valor de 'b':\n");
-	getNum(&b);
+	if(getNum(&b) == 1){
+		printf("Error: Parametro incorrecto\n");
+		int j = 0;
+		while(j<50000000) {
+		j++;
+		}
+
+		return 0;
+	}
 	printf("\n");
 	printf("Ingresar valor de 'c':\n");
-	getNum(&q);
+	if(getNum(&q) == 1){
+		printf("Error: Parametro incorrecto\n");
+		int j = 0;
+		while(j<50000000) {
+		j++;
+		}
+
+		return 0;
+	}
 	printf("\n");
 
 	clear_screen();
@@ -84,7 +108,7 @@ void coordinates() {
 	}
 }
 
-void getNum(int* a){
+int getNum(int* a){
 	int state = 0;
 	char c;
 	char buffer[MAX_SIZE];
@@ -102,6 +126,10 @@ void getNum(int* a){
 				state = exit;
 
 				}
+			else if(c < '0' || c > '9'){
+			
+				return 1; //error
+			}
 		
       			 else {
 		      		buffer[index] = c;
@@ -115,6 +143,7 @@ void getNum(int* a){
 		buffer[k] = buffer[k] - '0';
 		*a = (*a) * 10 + buffer[k];
 	}
+	return 0;
 }
 
 

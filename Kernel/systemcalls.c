@@ -2,7 +2,7 @@
 #include <interrupts.h>
 #include <keyboard_driver.h>
 #include <time.h>
-#include <vsa_driver.h>
+#include <video_driver.h>
 
 typedef qword (*sys)(qword rsi, qword rdx, qword rcx, qword r8, qword r9);
 

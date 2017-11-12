@@ -6,9 +6,6 @@
 /* Prints character */
 void putchar(unsigned char c);
 
-/* Gets a character, an unsigned char, from stdin */
-//char getchar();
-
 /*Returns string length*/
 int strlen(const char* str);
 
