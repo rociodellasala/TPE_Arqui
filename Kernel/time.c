@@ -1,5 +1,7 @@
 #include <interrupts.h>
 #include <time.h>
+#include <video_driver.h>
+#include <converter.h>
 
 static unsigned long ticks = 0;
 
@@ -24,4 +26,51 @@ void sleep(unsigned long t){
 	}
 	_sti();
 
+}
+
+void printTime() {
+	clear_screen();
+	char * hh;
+	char * mm;
+	char * ss;
+	int h = hour();
+	int m = minutes();
+	int s = seconds();
+
+	if(h == 1){
+		h = 22;
+	}else if(h == 2){
+		h = 23;
+	}else if(h == 0){
+		h = 21;
+	}else{
+		h = h - 3;
+	}
+
+	intToString(h, hh);
+	intToString(m, mm);
+	intToString(s, ss);
+	
+	print_string("Local time is:");
+	if(h < 10){
+		print_string("0");
+	}
+	print_string(hh);
+	print_string(":");
+	if(m < 10){
+		print_string("0");
+	}
+	print_string(mm);
+	print_string(":");
+	if(s < 10){
+		print_string("0");
+	}
+	print_string(ss);
+
+	int i = 0;
+	while(i < 500000000){
+		i++;
+	}
+
+	return;
 }

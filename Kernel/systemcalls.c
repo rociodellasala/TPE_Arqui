@@ -6,7 +6,7 @@
 
 typedef qword (*sys)(qword rsi, qword rdx, qword rcx, qword r8, qword r9);
 
-static sys sysCalls[9]; 
+static sys sysCalls[10]; 
 
 void sys_clear(qword rsi, qword rdx, qword rcx, qword r8, qword r9) {
 	clear_screen();
@@ -40,6 +40,10 @@ void sys_pixel(qword x, qword y, qword rcx, qword r8, qword r9) {
     draw_pixel(x, y);
 }
 
+void sys_time(qword rsi, qword rdx, qword rcx, qword r8, qword r9) {
+	printTime();
+}
+
 void load_systemcalls(){
 	sysCalls[1] = &sys_write;
 	sysCalls[2] = &sys_clear;
@@ -49,6 +53,7 @@ void load_systemcalls(){
 	sysCalls[6] = &sys_sleep;
 	sysCalls[7] = &sys_delete;
 	sysCalls[8] = &sys_pixel;
+	sysCalls[9] = &sys_time;
 
 	setup_IDT_entry(0x80, (qword)&_irq80Handler); 
 }
@@ -56,7 +61,7 @@ void load_systemcalls(){
 
 void syscall_handler(qword rdi,qword rsi, qword rdx, qword rcx, qword r8, qword r9) {
 
-	if(rdi < 0 || rdi >= 9) { 
+	if(rdi < 0 || rdi >= 10) { 
 		return;
 	}
 

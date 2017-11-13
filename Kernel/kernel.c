@@ -68,14 +68,10 @@ int main(){
 				break;
 
 			case '2':
-				((EntryPoint)getTime)();
-				break;
-
-			case '3':
 				((EntryPoint)linearGraph)();
 				break;
 
-			case '4':
+			case '3':
 				((EntryPoint)parabolicGraph)();
 				break;
 		}
@@ -89,10 +85,8 @@ void menu(){
 	clear_screen();
 	print_string("1: SHELL");
 	nextLine();
-	print_string("2: TIME");
+	print_string("2: LINEAR GRAPH");
 	nextLine();
-	print_string("3: LINEAR GRAPH");
-	nextLine();
-	print_string("4: PARABOLIC GRAPH");
+	print_string("3: PARABOLIC GRAPH");
 	nextLine();
 }
