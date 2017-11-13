@@ -1,6 +1,8 @@
 #ifndef VSA_DRIVER_H
 #define VSA_DRIVER_H
 
+#include <types.h>
+
 /* Starts video mode. Initializes pointers.  */
 void  start_video_mode();
 
@@ -42,5 +44,14 @@ void changeFontColor(int color);
 
 /* When the text reaches the bottom, it moves all the characters one line up */
 void move_screen();
+
+/* */
+void print_int(qword n);
+
+/* */
+int countAllDigits(qword n);
+
+/* Displays main menu*/
+void print_menu();
 
 #endif

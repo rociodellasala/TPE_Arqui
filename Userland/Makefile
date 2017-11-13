@@ -2,13 +2,10 @@ include Makefile.inc
 
 SAMPLE_DATA=shell.bin
 
-all: terminal timeDisplay linearFDisp parabDisp 
+all: terminal linearFDisp parabDisp 
 
 terminal:
 	cd shell; make
-
-timeDisplay:
-	cd getTime; make
 
 linearFDisp:
 	cd linearGraph; make

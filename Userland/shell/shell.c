@@ -4,6 +4,7 @@
 #include <string.h>
 #include <unistd.h>
 
+
 int main() {
 	clear_terminal();
 	start_shell();

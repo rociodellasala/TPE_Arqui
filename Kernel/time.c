@@ -20,7 +20,7 @@ int seconds_elapsed() {
 void sleep(unsigned long t){
 	_cli();
     
-    unsigned long sleep_ticks = 0;
+        unsigned long sleep_ticks = 0;
 	while(sleep_ticks < t){
     		sleep_ticks++;
 	}
@@ -29,7 +29,7 @@ void sleep(unsigned long t){
 }
 
 void printTime() {
-	clear_screen();
+	nextLine();
 	char * hh;
 	char * mm;
 	char * ss;
@@ -47,30 +47,22 @@ void printTime() {
 		h = h - 3;
 	}
 
-	intToString(h, hh);
-	intToString(m, mm);
-	intToString(s, ss);
 	
 	print_string("Local time is:");
 	if(h < 10){
 		print_string("0");
 	}
-	print_string(hh);
+	print_int(h);
 	print_string(":");
 	if(m < 10){
 		print_string("0");
 	}
-	print_string(mm);
+	print_int(m);
 	print_string(":");
 	if(s < 10){
 		print_string("0");
 	}
-	print_string(ss);
+	print_int(s);
 
-	int i = 0;
-	while(i < 500000000){
-		i++;
-	}
-
-	return;
+	return 0;
 }

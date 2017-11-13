@@ -99,7 +99,6 @@ int changeFontColor(char* color){
 }
 
 void time(){
-	printf("hola");
 	int80(9, 0, 0, 0, 0, 0);
 	return;
 }

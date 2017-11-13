@@ -15,10 +15,8 @@ extern byte endOfKernel;
 
 static const qword PageSize = 0x1000;
 extern unsigned int read();
-void menu();
 
 static void * const shell = (void*)0x400000;
-static void * const getTime = (void*)0x500000;
 static void * const linearGraph = (void*)0x700000;
 static void * const parabolicGraph = (void*)0x900000;
 
@@ -37,7 +35,7 @@ void * getStackBase() {
 }
 
 void * initializeKernelBinary() {
-	void * moduleAddresses[] = { shell, getTime, linearGraph, parabolicGraph,};
+	void * moduleAddresses[] = { shell, linearGraph, parabolicGraph,};
 	loadModules(&endOfKernelBinary, moduleAddresses);
 	clearBSS(&bss, &endOfKernel - &bss);
 	return getStackBase();
@@ -55,7 +53,7 @@ int main(){
 	
 	while(1){
 		clear_screen();
-		menu();
+		print_menu();
 		int i = 0;
 		
 		while((opcion = get_buffer()) == EOF || i<1) {
@@ -80,13 +78,3 @@ int main(){
 	return 0;
 }
 
-/* Creo que el menu no deberia ir aca, quiza en video_driver */
-void menu(){
-	clear_screen();
-	print_string("1: SHELL");
-	nextLine();
-	print_string("2: LINEAR GRAPH");
-	nextLine();
-	print_string("3: PARABOLIC GRAPH");
-	nextLine();
-}
