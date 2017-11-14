@@ -8,7 +8,7 @@ int strlen(const char * str){
 }
 
 
-boolean strcmp(char* str1,char* str2){
+boolean strcmp(char * str1, char * str2){
 	int i;
 	boolean equals = true;			
 	
@@ -16,10 +16,8 @@ boolean strcmp(char* str1,char* str2){
 		if(str1[i] != str2[i]){
 			equals = false;
 		}	
-
 	}
 	
-
 	if(equals == false){
 		return false;
 	}

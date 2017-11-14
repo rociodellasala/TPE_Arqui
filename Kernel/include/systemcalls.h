@@ -7,6 +7,6 @@
 void load_systemcalls();
 
 /* Executes the syscall acording to rdi value */
-void syscall_handler(qword rdi,qword rsi, qword rdx, qword rcx, qword r8, qword r9);
+void syscall_handler(qword rdi, qword rsi, qword rdx, qword rcx, qword r8, qword r9);
 
 #endif

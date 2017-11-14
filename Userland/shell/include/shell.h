@@ -8,15 +8,15 @@
 void start_shell();
 
 /* Gets the command to work in terminal */
-int get_command(char* buffer);
+int get_command(char * buffer);
 
 /* Calls the command, if it exist */
-int call_command(char* function, char* param);
+int call_command(char * function, char * param);
 
 /* Displays help menu for the user */
 void printHelp();
 
 /* Displays a line of text */
-void echo(char* buffer);
+void echo(char * buffer);
 
 #endif

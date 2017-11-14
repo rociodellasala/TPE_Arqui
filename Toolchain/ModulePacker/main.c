@@ -31,7 +31,7 @@ static struct argp_option options[] = {
 static struct argp argp = { options, parse_opt, args_doc, doc };
 
 
-int main(int argc, char *argv[]) {
+int main(int argc, char * argv[]){
 	
 	struct arguments arguments;
 
@@ -42,24 +42,24 @@ int main(int argc, char *argv[]) {
 
 	array_t fileArray = {arguments.args, arguments.count};
 
-	if(!checkFiles(fileArray)) {
+	if(!checkFiles(fileArray)){
 		return 1;
 	}	
 
 	return !buildImage(fileArray, arguments.output_file);
 }
 
-int buildImage(array_t fileArray, char *output_file) {
+int buildImage(array_t fileArray, char * output_file){
 
 	FILE *target;
 
-	if((target = fopen(output_file, "w")) == NULL) {
+	if((target = fopen(output_file, "w")) == NULL){
 		printf("Can't create target file\n");
 		return FALSE;
 	}
 
 	//First, write the kernel
-	FILE *source = fopen(fileArray.array[0], "r");
+	FILE * source = fopen(fileArray.array[0], "r");
 	write_file(target, source);
 
 	//Write how many extra binaries we got.
@@ -68,7 +68,7 @@ int buildImage(array_t fileArray, char *output_file) {
 	fclose(source);
 
 	int i;
-	for (i = 1 ; i < fileArray.length ; i++) {
+	for (i = 1 ; i < fileArray.length ; i++){
 		FILE *source = fopen(fileArray.array[i], "r");
 		
 		//Write the file size;
@@ -79,26 +79,27 @@ int buildImage(array_t fileArray, char *output_file) {
 
 		fclose(source);
 
-	} 
+	}
+
 	fclose(target);
 	return TRUE;
 }
 
 
-int checkFiles(array_t fileArray) {
-
+int checkFiles(array_t fileArray){
 	int i = 0;
-	for(; i < fileArray.length ; i++) {
-		if(access(fileArray.array[i], R_OK)) {
+	for(; i < fileArray.length ; i++){
+		if(access(fileArray.array[i], R_OK)){
 			printf("Can't open file: %s\n", fileArray.array[i]);
 			return FALSE;
 		}
 	}
+
 	return TRUE;
 
 }
 
-int write_size(FILE *target, char *filename) {
+int write_size(FILE * target, char * filename){
 	struct stat st;
 	stat(filename, &st);
 	uint32_t size = st.st_size;
@@ -106,11 +107,11 @@ int write_size(FILE *target, char *filename) {
 }
 
 
-int write_file(FILE *target, FILE *source) {
+int write_file(FILE * target, FILE * source){
 	char buffer[BUFFER_SIZE];
 	int read;
 
-	while (!feof(source)) {
+	while (!feof(source)){
 		read = fread(buffer, 1, BUFFER_SIZE, source);
 		fwrite(buffer, 1, read, target);
 	}
@@ -121,31 +122,31 @@ int write_file(FILE *target, FILE *source) {
 
 /* Parse a single option. */
 static error_t
-parse_opt (int key, char *arg, struct argp_state *state)
+parse_opt (int key, char * arg, struct argp_state * state)
 {
   /* Get the input argument from argp_parse, which we
      know is a pointer to our arguments structure. */
-  struct arguments *arguments = state->input;
+  struct arguments * arguments = state -> input;
 
-  switch (key)
-    {
+  switch (key){
     case 'o':
-      arguments->output_file = arg;
+      arguments -> output_file = arg;
       break;
 
     case ARGP_KEY_ARG:
-      arguments->args[state->arg_num] = arg;
+      arguments -> args[state -> arg_num] = arg;
       break;
 
     case ARGP_KEY_END:
-      if (state->arg_num < 1)
+      if (state -> arg_num < 1)
         argp_usage (state);
-      arguments->count = state->arg_num;
+      arguments -> count = state -> arg_num;
       break;
 
     default:
       return ARGP_ERR_UNKNOWN;
     }
+    
   return 0;
 }
 

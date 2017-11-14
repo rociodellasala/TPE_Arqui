@@ -45,11 +45,11 @@ void changeFontColor(int color);
 /* When the text reaches the bottom, it moves all the characters one line up */
 void move_screen();
 
-/* */
+/* Prints number in the next writing position */
 void print_int(qword n);
 
-/* */
-int countAllDigits(qword n);
+/* Returns the number of digits in an int */
+int countDigits(qword n);
 
 /* Displays main menu*/
 void print_menu();

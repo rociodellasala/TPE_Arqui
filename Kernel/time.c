@@ -30,13 +30,13 @@ void sleep(unsigned long t){
 
 void printTime() {
 	nextLine();
-	char * hh;
-	char * mm;
-	char * ss;
+
+	/* Fetch time */
 	int h = hour();
 	int m = minutes();
 	int s = seconds();
 
+	/* Adjust time according to GMT */
 	if(h == 1){
 		h = 22;
 	}else if(h == 2){
@@ -47,8 +47,8 @@ void printTime() {
 		h = h - 3;
 	}
 
-	
-	print_string("Local time is:");
+	/* Print current time */
+	print_string("Local time is: ");
 	if(h < 10){
 		print_string("0");
 	}
@@ -63,6 +63,4 @@ void printTime() {
 		print_string("0");
 	}
 	print_int(s);
-
-	return 0;
 }

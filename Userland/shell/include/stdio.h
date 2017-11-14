@@ -2,7 +2,7 @@
 #define STDIO_H
 
 /* Prints string with format */
-void printf(const char* str,...);
+void printf(const char * str, ...);
 
 /* Prints character */
 void putchar(unsigned char c);
@@ -26,6 +26,9 @@ void nextLine();
 void nextTerminalLine();
 
 /* Changes font color shown on terminal */
-int changeFontColor(char* c);
+int changeFontColor(char * c);
+
+/* Prints current time */
+void time();
 
 #endif

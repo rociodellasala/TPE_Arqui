@@ -11,6 +11,6 @@ void update_buffer(unsigned char key);
 char get_buffer();
 
 /* Reads what was saved on buffer */
-void read_buffer(char* buff, int size);
+void read_buffer(char * buff, int size);
 
 #endif

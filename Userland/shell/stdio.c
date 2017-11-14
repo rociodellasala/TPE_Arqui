@@ -6,44 +6,45 @@
 
 extern void int80(qword rdi, qword rsi, qword rdx, qword rcx, qword r8, qword r9);
 
-void printf(const char * str,...){
+void printf(const char * str, ...){
 	char num[12];
 	va_list arguments;
-	va_start ( arguments,str);
+	va_start (arguments, str);
 	int length = strlen(str);
-	int state=0;
-	for(int x=0;x<length;x++){
-		if(state==0){
-			if(str[x]!= '%')
+	int state = 0;
+	for(int x = 0; x < length; x++){
+		if(state == 0){
+			if(str[x] != '%')
 				putchar(str[x]);
 			else
-				state=1;
+				state = 1;
 		}else{
 			switch(str[x]){
 				case 'd':
-					intToString(va_arg ( arguments, int),num);
-					int index=0;
-					while(num[index]!=0)
+					intToString(va_arg(arguments, int), num);
+					int index = 0;
+					while(num[index] != 0){
 						putchar(num[index++]);
-					state=0;
+					}
+					state = 0;
 					break;
 				case 'c':
-					putchar((char)(va_arg(arguments,int)));
-					state=0;
+					putchar((char)(va_arg(arguments, int)));
+					state = 0;
 					break;
 				case 's':
-					printf(va_arg(arguments, char*));
+					printf(va_arg(arguments, char *));
 					state = 0;
 					break;
 				default:	
 					putchar('%');
 					putchar(str[x]);
-					state=0;
+					state = 0;
 					break;
 			}
 		}
+	}
 
-	}	
 	va_end(arguments);
 }
 
@@ -53,7 +54,7 @@ void putchar(unsigned char c) {
 
 char getchar() {
 	unsigned char c[2];
-	int80(3,0,c,2,0,0);
+	int80(3, 0, c, 2, 0, 0);
 	if(c[0] == 0 ) 
 		return EOF;
 	return c[0];
@@ -81,7 +82,7 @@ void nextTerminalLine(){
 	printf("$>:  ");
 }
 
-int changeFontColor(char* color){
+int changeFontColor(char * color){
 	if(strcmp(color, "blue")) {
 		int80(4, 0x0000FF, 0, 0, 0, 0);
 	} else if(strcmp(color, "red")){

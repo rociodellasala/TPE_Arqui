@@ -2,6 +2,6 @@
 #define STDLIB_H
 
 /* Converts an int to string */
-void intToString(int num, char* str);
+void intToString(int num, char * str);
 
 #endif

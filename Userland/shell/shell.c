@@ -18,25 +18,24 @@ void start_shell() {
   	int state;
   	boolean isFirst = true;
   	
-	while(state != exit) {
-
+	while(state != exit){
 		if(isFirst == true){
 			index = 0;
 			buffer[0] = 0;
 			isFirst = false;
 		}
 
-		if ((c = getchar()) != EOF) {
-    			if(c == '\b'){
-    				if(index != 0){
-    					index--;
-		    			buffer[index] = 0;
-		    			backspace();
-    				}
-    			} else if(c == '\n'){
-	      
-	      			buffer[index] = 0;
-	      			state = get_command(buffer);
+		if ((c = getchar()) != EOF){
+			if(c == '\b'){
+				if(index != 0){
+					index--;
+	    			buffer[index] = 0;
+	    			backspace();
+				}
+			}else if(c == '\n'){
+      			buffer[index] = 0;
+      			state = get_command(buffer);
+				
 				switch(state){
 					case 0:
 						nextTerminalLine();
@@ -54,23 +53,21 @@ void start_shell() {
 						isFirst = true;
 						break;
 				}
-		
-      			} else {
-		      		buffer[index] = c;
+  			}else {
+	      		buffer[index] = c;
 				putchar(buffer[index]);		      		
 				index++;
-		      		buffer[index] = 0;
-			
-	  		}	   	
+	      		buffer[index] = 0;
+  			}	   	
 		}	
 	}
 }
 
-int get_command(char* buffer){
+int get_command(char * buffer){
 	int x = 0;
 	char function[15];
 
-	while(buffer[x] != ' ' && buffer[x] != 0) {
+	while(buffer[x] != ' ' && buffer[x] != 0){
 		function[x] = buffer[x];
 		x++;
 		if(x > 14)
@@ -79,38 +76,38 @@ int get_command(char* buffer){
 	
 	function[x] = 0;
 	
-	return call_command(function, buffer+x+1);
+	return call_command(function, buffer + x + 1);
 }
 
-int call_command(char* function, char* parameter) {
-	if(strcmp(function, "echo")) {
+int call_command(char * function, char * parameter){
+	if(strcmp(function, "echo")){
 		echo(parameter);
 		return 0;
-	} else if(strcmp(function, "font")) {
+	} else if(strcmp(function, "font")){
 		return changeFontColor(parameter);
-	} else if(strcmp(function, "cls")) {
+	} else if(strcmp(function, "cls")){
 		 clear_terminal();
 		 return 3;
-	} else if(strcmp(function, "help")) {
+	} else if(strcmp(function, "help")){
 		printHelp(); 
 		return 0;
-	} else if(strcmp(function, "sleep")) {
+	} else if(strcmp(function, "sleep")){
 		sleep();
 		return 0;
-	}	else if(strcmp(function, "time")) {
+	}	else if(strcmp(function, "time")){
 		time();
 		return 0;
-	} else if(strcmp(function, "divideByZero")) {		
+	} else if(strcmp(function, "divideByZero")){		
 		divide_by_zero();
 	} else if(strcmp(function, "invalidOpcode")){
 		invalid_opcode();
-	} else if(strcmp(function, "exit")) {			
+	} else if(strcmp(function, "exit")){			
 		return 2;
 	}
 		return 1;
 }
 
-void printHelp() {
+void printHelp(){
 	clear_screen();
 	printf("HELP -- Manual to interact with the terminal: \n\n");
 	printf("echo [message]:         Prints message.\n");

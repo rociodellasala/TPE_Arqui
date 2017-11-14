@@ -16,9 +16,9 @@ extern byte endOfKernel;
 static const qword PageSize = 0x1000;
 extern unsigned int read();
 
-static void * const shell = (void*)0x400000;
-static void * const linearGraph = (void*)0x700000;
-static void * const parabolicGraph = (void*)0x900000;
+static void * const shell = (void *)0x400000;
+static void * const linearGraph = (void *)0x700000;
+static void * const parabolicGraph = (void *)0x900000;
 
 typedef int (*EntryPoint)();
 
@@ -27,7 +27,7 @@ void clearBSS(void * bssAddress, qword bssSize) {
 }
 
 void * getStackBase() {
-	return (void*)(
+	return (void *)(
 		(qword)&endOfKernel
 		+ PageSize * 8		  	/* The size of the stack itself, 32KiB */
 		- sizeof(qword)			/* Begin at the top of the stack */
@@ -35,7 +35,7 @@ void * getStackBase() {
 }
 
 void * initializeKernelBinary() {
-	void * moduleAddresses[] = { shell, linearGraph, parabolicGraph,};
+	void * moduleAddresses[] = {shell, linearGraph, parabolicGraph,};
 	loadModules(&endOfKernelBinary, moduleAddresses);
 	clearBSS(&bss, &endOfKernel - &bss);
 	return getStackBase();
@@ -56,11 +56,11 @@ int main(){
 		print_menu();
 		int i = 0;
 		
-		while((opcion = get_buffer()) == EOF || i<1) {
+		while((opcion = get_buffer()) == EOF || i < 1){
 			i++;
 		}
 
-		switch(opcion) {
+		switch(opcion){
 			case '1':
 				((EntryPoint)shell)();
 				break;
