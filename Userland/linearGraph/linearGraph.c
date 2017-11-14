@@ -115,7 +115,9 @@ int getNum(int* a){
 		if ((c = getchar()) != EOF) {
     			
     			if(c == '\n'){
-	      
+	      			if(index == 0){
+					return 1; //error
+				}
 	      			buffer[index] = 0;
 				state = exit;
 

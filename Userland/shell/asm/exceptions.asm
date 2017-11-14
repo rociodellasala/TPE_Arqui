@@ -20,6 +20,25 @@ divide_by_zero:
 	ret
 
 
+
+; -----------------------------------------------------------------------------
+;	Generates a overflow exception
+;	Parameters:
+;		None
+; -----------------------------------------------------------------------------
+overflow:
+	push rbp
+	mov rbp, rsp
+	
+	mov ecx, 2h
+	mov eax, 4h
+	idiv ecx
+		
+
+    	mov rsp, rbp
+	pop rbp
+	ret
+
 	
 ; -----------------------------------------------------------------------------
 ;	Generates an invalid opcode exception
@@ -35,5 +54,7 @@ invalid_opcode:
     	mov rsp, rbp
 	pop rbp
 	ret
+
+
 
 

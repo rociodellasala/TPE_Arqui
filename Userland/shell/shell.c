@@ -4,6 +4,7 @@
 #include <string.h>
 #include <unistd.h>
 
+
 int main() {
 	clear_terminal();
 	start_shell();
@@ -96,6 +97,9 @@ int call_command(char* function, char* parameter) {
 	} else if(strcmp(function, "sleep")) {
 		sleep();
 		return 0;
+	}	else if(strcmp(function, "time")) {
+		time();
+		return 0;
 	} else if(strcmp(function, "divideByZero")) {		
 		divide_by_zero();
 	} else if(strcmp(function, "invalidOpcode")){
@@ -114,8 +118,9 @@ void printHelp() {
 	printf("cls:                    Clears screen.\n");	
 	printf("help:                   Displays manual.\n");
 	printf("sleep:                  The console waits for a while.\n");
-	printf("divideByZero:           Makes an integer division to show how zero exception works\n");
-	printf("invalidOpcode:          Shows how invalid opcode exception works by calling an undefined instruction\n");
+	printf("time:                   Displays the current time.\n");
+	printf("divideByZero:           Makes an integer division to show how zero exception works.\n");
+	printf("invalidOpcode:          Shows how invalid opcode exception works by calling an undefined instruction.\n");
 	printf("exit:                   Goes back and displays the menu.\n");
 }
 

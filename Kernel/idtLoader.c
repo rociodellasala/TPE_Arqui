@@ -31,7 +31,7 @@ void load_idt() {
 
 	/* Cargo en la IDT las excepciones */  	
 	setup_IDT_entry (0x00, (qword)&_exception0Handler);
-	//setup_IDT_entry (0x04, (qword)&_exception4Handler);
+	setup_IDT_entry (0x04, (qword)&_exception4Handler);
 	setup_IDT_entry (0x06, (qword)&_exception6Handler);
 
 

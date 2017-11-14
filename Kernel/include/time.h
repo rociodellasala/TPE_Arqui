@@ -13,4 +13,16 @@ int seconds_elapsed();
 /* Sleeps console for a while */
 void sleep(unsigned long t);
 
+/* Displays current time */
+void printTime();
+
+/* Returns current seconds */
+unsigned int seconds();
+
+/* Returns current minutes */
+unsigned int minutes();
+
+/* Returns current hour */
+unsigned int hour();
+
 #endif

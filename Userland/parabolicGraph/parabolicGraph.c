@@ -63,16 +63,33 @@ int main (void){
 	int ejex;
 	int ejey;
 
+	if (a != 0){
 
-	for(int i = -(WIDTH/2-HEIGHT/2)  ; i < WIDTH-(WIDTH/2-HEIGHT/2); i++){
-		y = a*i*i + b*i + q;
+		for(int i = -(WIDTH/2-HEIGHT/2)  ; i < WIDTH-(WIDTH/2-HEIGHT/2); i++){
+			y = a*i*i + b*i + q;
 
-		ejex = i + (2*(WIDTH/2-HEIGHT/2)+ (WIDTH/2 - 2*(WIDTH/2-HEIGHT/2)));
-		ejey = HEIGHT/2 - y/25;
-		draw_pixel(ejex  , ejey);
+			ejex = i + (2*(WIDTH/2-HEIGHT/2)+ (WIDTH/2 - 2*(WIDTH/2-HEIGHT/2)));
+			ejey = HEIGHT/2 - y/25;
+			draw_pixel(ejex  , ejey);
+		}
 	}
+	else{
+		if( b == 0){
+			for(int i = 0; i < WIDTH; i++){
 
+				draw_pixel(i, HEIGHT-q-HEIGHT/2);
+			}	
+		}else{
 	
+
+			for(int i = -WIDTH/2+(WIDTH/2-HEIGHT/2); i < WIDTH-(WIDTH/2-HEIGHT/2); i++){
+				y = b*i + q;
+				ejex = i + (2*(WIDTH/2-HEIGHT/2)+ (WIDTH/2 - 2*(WIDTH/2-HEIGHT/2)));
+				ejey = HEIGHT/2 - y;
+				draw_pixel(ejex  , ejey);
+			}
+		}
+	}
 
 
 	
@@ -119,7 +136,9 @@ int getNum(int* a){
 		if ((c = getchar()) != EOF) {
     			
     			if(c == '\n'){
-	      
+	      			if(index == 0){
+					return 1; //error
+				}
 	      			buffer[index] = 0;
 				state = exit;
 
