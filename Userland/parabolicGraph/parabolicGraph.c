@@ -74,21 +74,29 @@ int main (void){
 		}
 	}
 	else{
-		if( b == 0){
-			for(int i = 0; i < WIDTH; i++){
+			if( b == 0){
+		
+				for(int i = 0; i < WIDTH; i++){
+			
+					draw_pixel(i, HEIGHT/2 -  q);
 
-				draw_pixel(i, HEIGHT-q-HEIGHT/2);
-			}	
-		}else{
+				}	
+			}else{
 	
 
-			for(int i = -WIDTH/2+(WIDTH/2-HEIGHT/2); i < WIDTH-(WIDTH/2-HEIGHT/2); i++){
-				y = b*i + q;
-				ejex = i + (2*(WIDTH/2-HEIGHT/2)+ (WIDTH/2 - 2*(WIDTH/2-HEIGHT/2)));
-				ejey = HEIGHT/2 - y;
-				draw_pixel(ejex  , ejey);
-			}
+				for(int i = -WIDTH/2+(WIDTH/2-HEIGHT/2); i < WIDTH-(WIDTH/2-HEIGHT/2); i++){
+					y = b*i + q;
+
+					ejex = i + (2*(WIDTH/2-HEIGHT/2)+ (WIDTH/2 - 2*(WIDTH/2-HEIGHT/2)));
+			
+					ejey = HEIGHT/2 - y;
+			
+		
+					draw_pixel(ejex  , ejey);
+				}
+
 		}
+
 	}
 
 
@@ -161,7 +169,7 @@ int getNum(int* a){
 		buffer[k] = buffer[k] - '0';
 		*a = (*a) * 10 + buffer[k];
 		}
-		*a = (*a)*(-1);
+		*a = (-1)*(*a);
 		return 0;
 
 	}else{
